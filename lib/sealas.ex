@@ -1,2 +1,0 @@
-defmodule Sealas do
-end
