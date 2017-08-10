@@ -46,7 +46,7 @@ defmodule SealasSso.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
-      {:mariaex, ">= 0.0.0"},
+      {:mariaex, github: "xerions/mariaex"},
       {:ecto, "~> 2.1"}
     ]
   end
