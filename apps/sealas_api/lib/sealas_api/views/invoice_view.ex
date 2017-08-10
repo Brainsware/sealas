@@ -1,6 +1,6 @@
-defmodule SealasApiWeb.InvoiceView do
+defmodule SealasApi.InvoiceView do
   use SealasApi, :view
-  alias SealasApiWeb.InvoiceView
+  alias SealasApi.InvoiceView
 
   def render("index.json", %{invoice: invoice}) do
     %{data: render_many(invoice, InvoiceView, "invoice.json")}
