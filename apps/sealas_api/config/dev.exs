@@ -10,9 +10,7 @@ config :sealas_api, SealasApi.Endpoint,
   http: [port: 4001],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  check_origin: false
 
 config :sealas_api, SealasApi.Repo,
   adapter: Ecto.Adapters.MySQL,
@@ -21,9 +19,7 @@ config :sealas_api, SealasApi.Repo,
   database: "ea.dask",
   hostname: "localhost",
   pool_size: 10,
-  port: 3306,
-  timeout: 20_000,
-  ownership_timeout: 20_000
+  port: 3306
 
 # ## SSL Support
 #
