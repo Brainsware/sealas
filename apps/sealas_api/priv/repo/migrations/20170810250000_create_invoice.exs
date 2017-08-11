@@ -3,8 +3,8 @@ defmodule SealasApi.Repo.Migrations.CreateInvoice do
 
   def change do
     create table(:invoice) do
-      add :contact_id,  references(:contact)
-      add :category_id, references(:invoice_category)
+      add :contact_id,  null: true, references(:contact)
+      add :category_id, null: true, references(:invoice_category)
 
       add :data,         :text, null: true
       add :contact_data, :text, null: true
