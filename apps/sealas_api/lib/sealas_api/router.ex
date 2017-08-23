@@ -8,6 +8,7 @@ defmodule SealasApi.Router do
   scope "/", SealasApi do
     pipe_through :api
 
-    resources "/invoice", InvoiceController
+    resources "/invoices", InvoiceController
+    resources "/contacts", ContactController
   end
 end
