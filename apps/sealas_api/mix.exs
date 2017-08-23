@@ -45,7 +45,7 @@ defmodule SealasApi.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:mariaex, github: "xerions/mariaex"},
+      {:mariaex, github: "xerions/mariaex", override: true},
       {:ecto, "~> 2.1"}
     ]
   end
