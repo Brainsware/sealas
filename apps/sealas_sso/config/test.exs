@@ -5,3 +5,7 @@ use Mix.Config
 config :sealas_sso, SealasSso.Endpoint,
   http: [port: 4001],
   server: false
+
+config :argon2_elixir,
+  t_cost: 2,
+  m_cost: 12
