@@ -11,7 +11,7 @@
     "markdownlint-cli": "^0.3.1"
   },
   "scripts": {
-    "mdlint": "find *.md apps/ -name '*.md' | xargs  -t markdownlint"
+    "mdlint": "markdownlint *.md apps/*/*.md"
   },
   "dependencies": {
     "grunt": "^1.0.1",
