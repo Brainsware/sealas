@@ -1,12 +1,16 @@
 language: elixir
 elixir: '1.5'
 otp_release: '20.0'
+services:
+  - postgresql
 node_js:
-- '6'
+  - '6'
 
 cache:
   - yarn
 before_script:
+  - psql -c "create role sealas password 'sealas';" -U postgres
+  - psql -c 'create database sealas;' -U postgres
   - yarn
   - mix deps.get
   - mix local.hex --force
