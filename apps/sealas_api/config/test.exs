@@ -11,6 +11,6 @@ config :sealas_api, SealasApi.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "sealas",
   password: "sealas",
-  database: "sealas_user",
+  database: "sealas",
   hostname: "localhost",
   pool_size: 10
