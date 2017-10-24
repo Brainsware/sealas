@@ -6,10 +6,6 @@ config :sealas_sso, SealasSso.Endpoint,
   http: [port: 4002],
   server: false
 
-config :argon2_elixir,
-  t_cost: 2,
-  m_cost: 12
-
 config :sealas_sso, SealasSso.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   adapter: Ecto.Adapters.Postgres,
@@ -18,3 +14,8 @@ config :sealas_sso, SealasSso.Repo,
   database: "sealas",
   hostname: "localhost",
   pool_size: 10
+
+config :argon2_elixir,
+  t_cost: 2,
+  m_cost: 12
+
