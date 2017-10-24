@@ -7,7 +7,6 @@ config :sealas_api, SealasApi.Endpoint,
   server: false
 
 config :sealas_api, SealasApi.Repo,
-  pool: Ecto.Adapters.SQL.Sandbox,
   adapter: Ecto.Adapters.Postgres,
   username: "sealas",
   password: "sealas",
