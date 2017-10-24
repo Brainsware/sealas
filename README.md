@@ -6,6 +6,13 @@ Sealas is Open Source. Open Source in all matters technical: the source code is 
 
 Check out the [website and blog repository](https://github.com/Brainsware/sealas-site), and follow our development of Sealas here: [https://sealas.at/blog](https://sealas.at/blog)
 
+## Build Status
+
+We build our software on two different CI systems, and then compare the result:
+
+Travis CI: [![Travis CI Build Status](https://travis-ci.org/Brainsware/sealas.svg?branch=master)](https://travis-ci.org/Brainsware/sealas)
+CircleCI: [![CircleCI Build Status](https://circleci.com/gh/Brainsware/sealas.svg?style=svg)](https://circleci.com/gh/Brainsware/sealas)
+
 ## Development
 
 To start dev server:
