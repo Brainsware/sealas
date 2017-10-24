@@ -8,6 +8,8 @@ cache:
 before_script:
   - yarn
   - mix deps.get
+  - mix local.hex --force
+  - mix local.rebar --force
 
 script:
   - yarn run mdlint
