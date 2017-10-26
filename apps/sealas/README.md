@@ -1,3 +1,0 @@
-# Sealas
-
-**TODO: Add description**
