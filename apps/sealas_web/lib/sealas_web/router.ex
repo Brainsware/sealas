@@ -21,6 +21,6 @@ defmodule SealasWeb.Router do
     |> put_resp_header("x-frame-options", "SAMEORIGIN")
     |> put_resp_header("x-content-type-options", "nosniff")
     |> put_resp_header("referrer-policy", "no-referrer-when-downgrade")
-    |> put_resp_header("content-security-policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' stats.esotericsystems.at " <> Application.get_env(:sealas, Sealas.Endpoint)[:static_uri] <> " www.youtube.com youtube.com fonts.googleapis.com fonts.gstatic.com q.stripe.com checkout.stripe.com js.stripe.com api.fixer.io; img-src 'self' data: " <> Application.get_env(:sealas, Sealas.Endpoint)[:static_uri] <> " " <> Application.get_env(:sealas, Sealas.Endpoint)[:cdn_uri] <> " q.stripe.com stats.esotericsystems.at")
+    |> put_resp_header("content-security-policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' stats.esotericsystems.at " <> Application.get_env(:sealas, SealasWeb.Endpoint)[:static_uri] <> " www.youtube.com youtube.com fonts.googleapis.com fonts.gstatic.com q.stripe.com checkout.stripe.com js.stripe.com api.fixer.io; img-src 'self' data: " <> Application.get_env(:sealas, SealasWeb.Endpoint)[:static_uri] <> " " <> Application.get_env(:sealas, SealasWeb.Endpoint)[:cdn_uri] <> " q.stripe.com stats.esotericsystems.at")
   end
 end

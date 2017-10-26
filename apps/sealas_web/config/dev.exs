@@ -12,7 +12,10 @@ config :sealas_web, SealasWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+                    cd: Path.expand("../assets", __DIR__)]],
+  cdn_uri:    "cdn.sealas.at",
+  static_uri: "static.sealas.local"
+
 
 # ## SSL Support
 #
@@ -40,5 +43,3 @@ config :sealas_web, SealasWeb.Endpoint,
       ~r{lib/sealas_web/templates/.*(eex)$}
     ]
   ]
-
-

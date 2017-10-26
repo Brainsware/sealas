@@ -7,8 +7,7 @@ use Mix.Config
 
 # General application configuration
 config :sealas_web,
-  namespace: SealasWeb,
-  ecto_repos: [Sealas.Repo]
+  namespace: SealasWeb
 
 # Configures the endpoint
 config :sealas_web, SealasWeb.Endpoint,
