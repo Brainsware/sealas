@@ -11,8 +11,8 @@ defmodule SealasSso.Accounts.User do
     field :password_hint_backup, :string
     field :salt,                 :string
     field :name,                 :string
-    field :locale,               :string
-    field :active,               :boolean
+    field :locale,               :string, default: "de"
+    field :active,               :boolean, default: false
     field :activation_code,      :string
     field :recovery_code,        :string
 
