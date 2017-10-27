@@ -4,4 +4,6 @@ use Mix.Config
 # you can enable the server option below.
 config :sealas_web, SealasWeb.Endpoint,
   http: [port: 4001],
-  server: false
+  server: false,
+  cdn_uri:    "",
+  static_uri: ""
