@@ -11,12 +11,12 @@ defmodule SealasApi.Repo.Migrations.CreateInvoice do
       add :line_data,    :text, null: true
       add :log_data,     :text, null: true
       add :company_data, :text, null: true
-      add :type,         :binary, null: true, size: 5
-      add :status,       :binary, null: true, size: 5
+      add :type,         :uuid, null: true
+      add :status,       :uuid, null: true
     end
 
     create index(:invoice, [:contact_id])
     create index(:invoice, [:type, :status])
-    create index(:invoice, [:category_id])
+    create index(:invoice, [:invoice_category_id])
   end
 end

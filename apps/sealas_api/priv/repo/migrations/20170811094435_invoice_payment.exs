@@ -6,9 +6,9 @@ defmodule SealasApi.Repo.Migrations.InvoicePayment do
       add :invoice_id,  references(:invoice)
 
       add :data,         :text, null: true
-      add :year,         :binary, null: true, size: 5
-      add :month,        :binary, null: true, size: 5
-      add :ext_id,       :binary, null: true, size: 32
+      add :year,         :uuid, null: true
+      add :month,        :uuid, null: true
+      add :ext_id,       :uuid, null: true
     end
 
     create index(:invoice_payment, [:month])

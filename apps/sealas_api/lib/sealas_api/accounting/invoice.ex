@@ -5,21 +5,21 @@ defmodule SealasApi.Accounting.Invoice do
   alias SealasApi.Repo
   alias SealasApi.Accounting.Invoice
   alias SealasApi.Accounting.InvoiceCategory
-  alias SealasApi.Accounting.InvoicePaymentView
-  alias SealasApi.Accounting.ContactView
+  alias SealasApi.Accounting.InvoicePayment
+  alias SealasApi.Accounting.Contact
 
   schema "invoice" do
-    belongs_to :contact,          ContactView
+    belongs_to :contact,          Contact
     belongs_to :invoice_category, InvoiceCategory
-    has_many   :invoice_payment,  InvoicePaymentView
+    has_many   :invoice_payment,  InvoicePayment
 
     field :company_data, :string
     field :contact_data, :string
     field :data,         :string
     field :line_data,    :string
     field :log_data,     :string
-    field :status,       :binary
-    field :type,         :binary
+    field :status,       Ecto.UUID
+    field :type,         Ecto.UUID
   end
 
   @doc false

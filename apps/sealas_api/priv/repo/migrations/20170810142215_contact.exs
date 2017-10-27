@@ -5,7 +5,7 @@ defmodule SealasApi.Repo.Migrations.CreateContact do
     create table(:contact) do
 
       add :data,         :text, null: true
-      add :ext_id,       :binary, null: true, size: 32
+      add :ext_id,       :uuid, null: true
     end
 
   end
