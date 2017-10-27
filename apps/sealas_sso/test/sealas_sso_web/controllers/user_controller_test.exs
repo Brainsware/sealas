@@ -1,5 +1,5 @@
 defmodule SealasSsoWeb.UserControllerTest do
-  use SealasSsoWeb.ConnCase
+  use SealasSso.ConnCase
 
   alias SealasSso.Accounts
   alias SealasSso.Accounts.User
