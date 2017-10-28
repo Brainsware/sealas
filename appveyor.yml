@@ -1,3 +1,4 @@
+image: Visual Studio 2017
 services:
   - postgresql96
 
@@ -13,6 +14,7 @@ install:
   - yarn
   - mix local.hex --force
   - mix local.rebar --force
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 build_script:
   - mix deps.get
