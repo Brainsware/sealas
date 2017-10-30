@@ -12,5 +12,9 @@
   },
   "scripts": {
     "mdlint": "find *.md apps/ -name '*.md' | xargs  -t markdownlint"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-mdlint": "^0.0.1"
   }
 }
