@@ -5,3 +5,12 @@ use Mix.Config
 config :sealas_api, SealasApi.Endpoint,
   http: [port: 4001],
   server: false
+
+config :sealas_api, SealasApi.Repo,
+  pool: Ecto.Adapters.SQL.Sandbox,
+  adapter: Ecto.Adapters.Postgres,
+  username: "sealas",
+  password: "sealas",
+  database: "sealas",
+  hostname: "localhost",
+  pool_size: 10

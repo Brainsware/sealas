@@ -45,7 +45,6 @@ defmodule SealasApi.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:mariaex, github: "xerions/mariaex", override: true},
       {:ecto, "~> 2.1"}
     ]
   end
@@ -55,6 +54,6 @@ defmodule SealasApi.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+    ["test": ["ecto.migrate", "test"]]
   end
 end

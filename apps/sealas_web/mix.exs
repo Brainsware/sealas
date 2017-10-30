@@ -39,11 +39,9 @@ defmodule SealasWeb.Mixfile do
     [
       {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:sealas, in_umbrella: true},
       {:cowboy, "~> 1.0"}
     ]
   end
@@ -53,6 +51,6 @@ defmodule SealasWeb.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+    #["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end

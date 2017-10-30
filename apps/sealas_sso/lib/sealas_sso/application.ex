@@ -8,6 +8,7 @@ defmodule SealasSso.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(SealasSso.Endpoint, []),
+      supervisor(SealasSso.Repo, []),
       # Start your own worker by calling: SealasSso.Worker.start_link(arg1, arg2, arg3)
       # worker(SealasSso.Worker, [arg1, arg2, arg3]),
     ]

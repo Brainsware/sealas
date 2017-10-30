@@ -1,0 +1,20 @@
+{
+  "name": "sealas-tests",
+  "title": "sealas-tests",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "Sealas Base Tests",
+  "homepage": "https://sealas.at",
+  "repository": "https://github.com/Brainsware/sealas",
+  "author": "Daniel Khalil <d.khalil@brainsware.at> (https://brainsware.at)",
+  "devDependencies": {
+    "markdownlint-cli": "^0.3.1"
+  },
+  "scripts": {
+    "mdlint": "grunt markdownlint"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-markdownlint": "^1.0.42"
+  }
+}

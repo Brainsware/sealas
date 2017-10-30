@@ -47,7 +47,6 @@ defmodule SealasSso.Mixfile do
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
       {:postgrex, ">= 0.0.0"},
-      {:mariaex, github: "xerions/mariaex"},
       {:ecto, "~> 2.1"}
     ]
   end
@@ -57,6 +56,6 @@ defmodule SealasSso.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+    ["test": ["ecto.migrate", "test"]]
   end
 end

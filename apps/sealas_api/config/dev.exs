@@ -13,13 +13,12 @@ config :sealas_api, SealasApi.Endpoint,
   check_origin: false
 
 config :sealas_api, SealasApi.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "ea.dask",
+  adapter: Ecto.Adapters.Postgres,
+  username: "sealas",
+  password: "sealas",
+  database: "sealas",
   hostname: "localhost",
-  pool_size: 10,
-  port: 3306
+  pool_size: 10
 
 # ## SSL Support
 #
