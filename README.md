@@ -8,10 +8,11 @@ Check out the [website and blog repository](https://github.com/Brainsware/sealas
 
 ## Build Status
 
-We build our software on two different CI systems, and then compare the result:
+We build our software on three different CI systems, and then compare the result:
 
 Travis CI: [![Travis CI Build Status](https://travis-ci.org/Brainsware/sealas.svg?branch=master)](https://travis-ci.org/Brainsware/sealas)
 CircleCI: [![CircleCI Build Status](https://circleci.com/gh/Brainsware/sealas.svg?style=svg)](https://circleci.com/gh/Brainsware/sealas)
+AppVeyor: [![AppVyor Build status](https://ci.appveyor.com/api/projects/status/va3txhnkajgnq82b/branch/master?svg=true)](https://ci.appveyor.com/project/Brainsware/sealas/branch/master)
 
 ## Development
 
