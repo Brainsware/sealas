@@ -39,14 +39,20 @@ defmodule SealasApi.Accounting.Invoice do
   def get_by!(type, value) do
     {:ok, invoices} = Repo.query(get_by_query(type), [value])
 
-    invoices
+    imap = Enum.map(invoices.columns, fn (column) -> String.to_atom(column) end)
+
+    Enum.map(invoices.rows, fn (r) ->
+      i = struct(Invoice, Enum.zip(imap, r))
+      |> Ecto.put_meta(state: :loaded)
+
+      {:ok, status_uuid} = Ecto.UUID.cast(i.status)
+      {:ok, type_uuid}   = Ecto.UUID.cast(i.type)
+
+      %{i | status: status_uuid, type: type_uuid }
+    end)
   end
 
   def create(attrs \\ %{}) do
-    # i = %Invoice{}
-    # |> Invoice.changeset(attrs)
-    # |> Repo.insert()
-
     Repo.query("
     INSERT INTO invoice
     (data, company_data, line_data, log_data, contact_data, status, type)
