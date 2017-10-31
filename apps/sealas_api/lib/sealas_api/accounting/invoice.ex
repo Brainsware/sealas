@@ -24,8 +24,13 @@ defmodule SealasApi.Accounting.Invoice do
 
   @doc false
   def changeset(%Invoice{} = invoice, attrs) do
+    {:ok, status_uuid} = Ecto.UUID.cast(:crypto.hash(:md5, attrs.status))
+    {:ok, type_uuid}   = Ecto.UUID.cast(:crypto.hash(:md5, attrs.type))
+
+    attrs = %{attrs | status: status_uuid, type: type_uuid }
+
     invoice
-    |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data])
+    |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data, :status, :type])
   end
 
   def list do
