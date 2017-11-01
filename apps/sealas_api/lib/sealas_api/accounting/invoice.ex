@@ -24,10 +24,15 @@ defmodule SealasApi.Accounting.Invoice do
 
   @doc false
   def changeset(%Invoice{} = invoice, attrs) do
-    {:ok, status_uuid} = Ecto.UUID.cast(:crypto.hash(:md5, attrs.status))
-    {:ok, type_uuid}   = Ecto.UUID.cast(:crypto.hash(:md5, attrs.type))
+    attrs = if Map.has_key?(attrs, "status") do
+      Map.merge(attrs, %{"status" => :crypto.hash(:md5, attrs["status"]), "type" => :crypto.hash(:md5, attrs["type"])})
+    else
+      %{attrs | status: :crypto.hash(:md5, attrs.status), type: :crypto.hash(:md5, attrs.type) }
+    end
 
-    attrs = %{attrs | status: status_uuid, type: type_uuid }
+    #attrs = if Map.has_key?(attrs, "type"), do: Map.merge(attrs, %{type: attrs["type"]}), else: attrs
+
+    #attrs = %{attrs | status: :crypto.hash(:md5, attrs.status), type: :crypto.hash(:md5, attrs.type) }
 
     invoice
     |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data, :status, :type])
