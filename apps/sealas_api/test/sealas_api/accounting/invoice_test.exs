@@ -17,7 +17,7 @@ defmodule SealasApi.InvoiceTest do
         |> Enum.into(@valid_attrs)
         |> Invoice.create()
 
-      Invoice.get!(List.first(List.first(invoice.rows)))
+      invoice
     end
 
     test "list/0 returns all invoices" do
