@@ -35,16 +35,10 @@ defmodule SealasApi.Accounting.Invoice do
   def get!(id), do: Repo.get!(Invoice, id)
 
   def get_by!(type, value) do
-    query = from i in Invoice
-
-    {:ok, hash} = EctoHash.cast(value)
-
-    query = case type do
-      "status" -> from i in query, where: i.status == ^hash
-      "type"   -> from i in query, where: i.type == ^hash
-    end
-
-    Repo.all(query)
+    Repo.all(case type do
+      "status" -> from i in Invoice, where: i.status == ^value
+      "type"   -> from i in Invoice, where: i.type == ^value
+    end)
   end
 
   def create(attrs \\ %{}) do
