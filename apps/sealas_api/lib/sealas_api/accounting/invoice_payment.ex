@@ -9,9 +9,9 @@ defmodule SealasApi.Accounting.InvoicePayment do
     belongs_to :invoice, Invoice
 
     field :data,         :string
-    field :year,         EctoHash
-    field :month,        EctoHash
-    field :ext_id,       EctoHash
+    field :year,         EctoHashIndex
+    field :month,        EctoHashIndex
+    field :ext_id,       EctoHashIndex
   end
 
   @doc false

@@ -1,4 +1,4 @@
-defmodule EctoHash do
+defmodule EctoHashIndex do
   @behaviour Ecto.Type
   def type, do: Ecto.UUID
 

@@ -6,7 +6,7 @@ defmodule SealasApi.Accounting.Contact do
 
   schema "contact" do
     field :data,         :string
-    field :ext_id,       EctoHash
+    field :ext_id,       EctoHashIndex
   end
 
   @doc false

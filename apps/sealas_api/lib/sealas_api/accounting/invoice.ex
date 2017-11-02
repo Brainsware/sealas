@@ -18,8 +18,8 @@ defmodule SealasApi.Accounting.Invoice do
     field :data,         :string
     field :line_data,    :string
     field :log_data,     :string
-    field :status,       EctoHash
-    field :type,         EctoHash
+    field :status,       EctoHashIndex
+    field :type,         EctoHashIndex
   end
 
   @doc false
