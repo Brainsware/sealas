@@ -10,7 +10,6 @@ defmodule EctoHashIndex do
     end
   end
   def cast(uuid), do: Ecto.UUID.cast uuid
-  def cast(_), do: :error
 
   defdelegate load(data), to: Ecto.UUID
   defdelegate dump(data), to: Ecto.UUID
