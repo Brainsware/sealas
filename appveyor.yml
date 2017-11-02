@@ -5,6 +5,10 @@ services:
 cache:
   - C:\ProgramData\chocolatey
   - C:\tools\mingw64
+  - C:\Program Files\erl9.0
+  - _build
+  - deps
+  - node_modules
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - SET PATH=C:\ProgramData\chocolatey\lib\Elixir\bin;C:\tools\mingw64\bin;%PATH%

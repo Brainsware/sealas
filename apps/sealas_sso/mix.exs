@@ -47,7 +47,8 @@ defmodule SealasSso.Mixfile do
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end
 
