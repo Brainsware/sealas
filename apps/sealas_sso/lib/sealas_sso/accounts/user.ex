@@ -1,8 +1,17 @@
 defmodule SealasSso.Accounts.User do
+  @moduledoc """
+  This module holds our users schema.
+  It's the point for all interactions via Ecto.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   alias SealasSso.Accounts.User
 
+  @doc """
+  We only identify users by email. Note that password, password_backup and
+  are cryptographic hashes, not the original entry!
+  """
   schema "users" do
     field :email,                :string
     field :password,             :string
@@ -19,7 +28,16 @@ defmodule SealasSso.Accounts.User do
     timestamps()
   end
 
-  @doc false
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> changeset(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
+  @spec changeset(%User{}, map) :: %Ecto.Changeset{}
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email])

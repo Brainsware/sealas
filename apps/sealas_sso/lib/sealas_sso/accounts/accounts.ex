@@ -17,6 +17,7 @@ defmodule SealasSso.Accounts do
       [%User{}, ...]
 
   """
+  @spec list_users :: [%User{}] | []
   def list_users do
     Repo.all(User)
   end
@@ -35,6 +36,7 @@ defmodule SealasSso.Accounts do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_user!(Integer) :: %User{} | Ecto.NoResultsError
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
@@ -49,6 +51,7 @@ defmodule SealasSso.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_user(map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
@@ -67,11 +70,13 @@ defmodule SealasSso.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_user(%User{}, map) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
     |> Repo.update()
   end
+
 
   @doc """
   Deletes a User.
@@ -85,6 +90,7 @@ defmodule SealasSso.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_user(%User{}) :: {:ok, %User{}} | {:error, %Ecto.Changeset{}}
   def delete_user(%User{} = user) do
     Repo.delete(user)
   end
@@ -98,6 +104,7 @@ defmodule SealasSso.Accounts do
       %Ecto.Changeset{source: %User{}}
 
   """
+  @spec change_user(%User{}) :: %Ecto.Changeset{}
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
