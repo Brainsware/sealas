@@ -1,4 +1,4 @@
-defmodule SealasApiWeb.InvoiceControllerTest do
+defmodule SealasApi.InvoiceControllerTest do
   use SealasApi.ConnCase
 
   alias SealasApi.Accounting.Invoice
