@@ -1,6 +1,6 @@
-defmodule SealasSsoWeb.UserView do
+defmodule SealasSso.UserView do
   use SealasSso, :view
-  alias SealasSsoWeb.UserView
+  alias SealasSso.UserView
 
   def render("index.json", %{users: users}) do
     %{data: render_many(users, UserView, "user.json")}
