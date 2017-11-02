@@ -18,14 +18,14 @@ defmodule SealasApi.Accounting.Invoice do
     field :data,         :string
     field :line_data,    :string
     field :log_data,     :string
-    field :status,       Ecto.UUID
-    field :type,         Ecto.UUID
+    field :status,       EctoHashIndex
+    field :type,         EctoHashIndex
   end
 
   @doc false
   def changeset(%Invoice{} = invoice, attrs) do
     invoice
-    |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data, :type, :status])
+    |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data, :status, :type])
   end
 
   def list do
@@ -33,6 +33,13 @@ defmodule SealasApi.Accounting.Invoice do
   end
 
   def get!(id), do: Repo.get!(Invoice, id)
+
+  def get_by!(type, value) do
+    Repo.all(case type do
+      "status" -> from i in Invoice, where: i.status == ^value
+      "type"   -> from i in Invoice, where: i.type == ^value
+    end)
+  end
 
   def create(attrs \\ %{}) do
     %Invoice{}
