@@ -6,6 +6,8 @@ defmodule SealasApi.InvoiceControllerTest do
   @create_attrs %{company_data: "some company_data", contact_data: "some contact_data", data: "some data", line_data: "some line_data", log_data: "some log_data", status: "test_status", type: "test_invoice"}
   @update_attrs %{company_data: "some updated company_data", contact_data: "some updated contact_data", data: "some updated data", line_data: "some updated line_data", log_data: "some updated log_data", status: "updated_test_status", type: "updated_test_invoice"}
 
+  @pager_params %{page: 1, page_size: 50}
+
   def fixture(:invoice) do
     {:ok, invoice} = Invoice.create(@create_attrs)
     invoice
@@ -16,9 +18,19 @@ defmodule SealasApi.InvoiceControllerTest do
   end
 
   describe "index" do
-    test "lists all invoice", %{conn: conn} do
-      conn = get conn, invoice_path(conn, :index)
-      assert json_response(conn, 200)["data"] == []
+    setup [:create_invoice]
+
+    test "lists all invoice", %{conn: conn, invoice: invoice} do
+      conn = get conn, invoice_path(conn, :index), @pager_params
+      assert json_response(conn, 200)["data"] == %{"page_number" => 1, "total_pages" => 1, "invoices" => [%{
+        "id" => invoice.id,
+        "company_data" => "some company_data",
+        "contact_data" => "some contact_data",
+        "data" => "some data",
+        "line_data" => "some line_data",
+        "log_data" => "some log_data",
+        "status" => "15ee3ed0-0c85-bd21-b342-a90bbb7109d0",
+        "type" => "c13bbe22-f8f6-55a0-47af-313e82edfbbd"}]}
     end
   end
 
