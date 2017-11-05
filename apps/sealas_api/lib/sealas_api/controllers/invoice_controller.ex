@@ -5,9 +5,12 @@ defmodule SealasApi.InvoiceController do
 
   action_fallback SealasApi.FallbackController
 
-  def index(conn, _params) do
-    invoice = Invoice.list()
-    render(conn, "index.json", invoice: invoice)
+  def index(conn, params \\ %{}) do
+    page = Invoice.list(params)
+    render conn, "index.json",
+      invoice: page.entries,
+      page_number: page.page_number,
+      total_pages: page.total_pages
   end
 
   def create(conn, %{"invoice" => invoice_params}) do
