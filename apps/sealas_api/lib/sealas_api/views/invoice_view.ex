@@ -2,8 +2,11 @@ defmodule SealasApi.InvoiceView do
   use SealasApi, :view
   alias SealasApi.InvoiceView
 
-  def render("index.json", %{invoice: invoice}) do
-    %{data: render_many(invoice, InvoiceView, "invoice.json")}
+  def render("index.json", %{invoice: invoice, page_number: page_number, total_pages: total_pages}) do
+    %{data: %{invoices:
+      render_many(invoice, InvoiceView, "invoice.json"),
+      page_number: page_number,
+      total_pages: total_pages}}
   end
 
   def render("show.json", %{invoice: invoice}) do

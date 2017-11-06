@@ -28,17 +28,17 @@ defmodule SealasApi.Accounting.Invoice do
     |> cast(attrs, [:data, :contact_data, :line_data, :log_data, :company_data, :status, :type])
   end
 
-  def list do
-    Repo.all(Invoice)
+  def list(params \\ %{}) do
+    Repo.paginate(Invoice, params)
   end
 
   def get!(id), do: Repo.get!(Invoice, id)
 
-  def get_by!(type, value) do
-    Repo.all(case type do
+  def get_by!(type, value, params \\ %{}) do
+    Repo.paginate(case type do
       "status" -> from i in Invoice, where: i.status == ^value
       "type"   -> from i in Invoice, where: i.type == ^value
-    end)
+    end, params)
   end
 
   def create(attrs \\ %{}) do

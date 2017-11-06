@@ -11,6 +11,8 @@ defmodule SealasApi.InvoiceTest do
     ## type   'test_invoice': 'c13bbe22-f8f6-55a0-47af-313e82edfbbd'
     ## status 'test_status':  '15ee3ed0-0c85-bd21-b342-a90bbb7109d0'
 
+    @pager_params %{page: 1, page_size: 50}
+
     def invoice_fixture(attrs \\ %{}) do
       {:ok, invoice} =
         attrs
@@ -20,9 +22,13 @@ defmodule SealasApi.InvoiceTest do
       invoice
     end
 
+    def build_page(invoice) do
+      %Scrivener.Page{entries: [invoice], page_number: 1, page_size: 50, total_entries: 1, total_pages: 1}
+    end
+
     test "list/0 returns all invoices" do
       invoice = invoice_fixture()
-      assert Invoice.list() == [invoice]
+      assert Invoice.list(@pager_params) == build_page(invoice)
     end
 
     test "get!/1 returns the invoice with given id" do
@@ -32,8 +38,8 @@ defmodule SealasApi.InvoiceTest do
 
     test "get_by!/2 returns all invoices with given status or type" do
       invoice = invoice_fixture()
-      assert Invoice.get_by!("status", "test_status") == [invoice]
-      assert Invoice.get_by!("type", "test_invoice") == [invoice]
+      assert Invoice.get_by!("status", "test_status", @pager_params) == build_page(invoice)
+      assert Invoice.get_by!("type", "test_invoice", @pager_params) == build_page(invoice)
     end
 
     test "update/2 with valid data updates the invoice" do
