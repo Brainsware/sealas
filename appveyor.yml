@@ -20,6 +20,7 @@ init:
 install:
   - cinst elixir
   - cinst mingw
+  - choco install VisualCppBuildTools
   - yarn
   - mix local.hex --force
   - mix local.rebar --force
