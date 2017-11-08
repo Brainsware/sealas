@@ -1,5 +1,6 @@
 # App artifacts
 /_build
+/_mix_ci/
 /db
 /deps
 /*.ez

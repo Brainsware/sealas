@@ -13,14 +13,40 @@ jobs:
           POSTGRES_DB: sealas
           POSTGRES_PASSWORD: "sealas"
 
-    working_directory: ~/repo
+    working_directory: ~/sealas
+    environment:
+      MIX_HOME: /home/circleci/sealas/_mix_ci
     steps:
       - checkout
-
-      # specify any bash command here prefixed with `run: `
+      - restore_cache:
+          keys:
+            - sealas-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run: npm i
+      - save_cache:
+          key: sealas-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
       - run: npm run mdlint
+
+      - restore_cache:
+          keys:
+            - sealas-mix-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - _mix_ci
+
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
       - run: mix test
+      - run: mix dialyzer
+      - save_cache:
+          key: sealas-mix-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - _mix_ci
