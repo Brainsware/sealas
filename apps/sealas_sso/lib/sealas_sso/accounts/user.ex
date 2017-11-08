@@ -5,9 +5,9 @@ defmodule SealasSso.Accounts.User do
 
   schema "users" do
     field :email,                :string
-    field :password,             :string
+    field :password,             EctoHashedPassword
     field :password_hint,        :string
-    field :password_backup,      :string
+    field :password_backup,      EctoHashedPassword
     field :password_hint_backup, :string
     field :salt,                 :string
     field :name,                 :string
