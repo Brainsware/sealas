@@ -36,5 +36,5 @@ before_test:
 test_script:
   - yarn run mdlint
   - mix compile
-  - mix dialyzer
+  - mix dialyzer --halt-exit-status
   - mix test

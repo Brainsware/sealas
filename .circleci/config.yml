@@ -43,7 +43,7 @@ jobs:
       - run: mix local.rebar --force
       - run: mix deps.get
       - run: mix test
-      - run: mix dialyzer
+      - run: mix dialyzer --halt-exit-status
       - save_cache:
           key: sealas-mix-{{ checksum "mix.lock" }}
           paths:

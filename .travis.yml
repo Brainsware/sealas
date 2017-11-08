@@ -25,5 +25,5 @@ before_script:
 
 script:
   - yarn run mdlint
-  - mix dialyzer
+  - mix dialyzer --halt-exit-status
   - mix test
