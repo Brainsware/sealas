@@ -20,6 +20,10 @@ config :sealas_sso, SealasSso.Repo,
   hostname: "localhost",
   pool_size: 10
 
+config :sealas_sso, SealasSso.Guardian,
+  issuer: "sealas",
+  secret_key: "YQnnTBIJqfn9QA7jp371vqZxKzjxCI9mjmbAWnyjDm013nHqeNp3gE/Zl0k11/b/"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

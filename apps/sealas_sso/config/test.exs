@@ -19,3 +19,6 @@ config :argon2_elixir,
   t_cost: 2,
   m_cost: 12
 
+config :sealas_sso, SealasSso.Guardian,
+  issuer: "sealas",
+  secret_key: "1alYndxVPyMsvGTYJdRKAJRbH69DKSZvxg1h9Lg3uXgE9VXh9AqLcF1VSmmoS8Ni"
