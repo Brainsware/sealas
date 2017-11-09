@@ -53,7 +53,7 @@ defmodule SealasApi.Accounting.Invoice do
   @doc """
   Returns a list of all Invoices
   """
-  @spec list(map) :: [%Invoice{}]
+  @spec list(map) :: Scrivener.Page.t
   def list(params \\ %{}) do
     Repo.paginate(Invoice, params)
   end
@@ -89,7 +89,7 @@ defmodule SealasApi.Accounting.Invoice do
       []
 
   """
-  @spec get_by!(String.t, String.t, map) :: [%Invoice{}] | []
+  @spec get_by!(String.t, String.t, map) :: Scrivener.Page.t
   def get_by!(type, value, params \\ %{}) do
     Repo.paginate(case type do
       "status" -> from i in Invoice, where: i.status == ^value

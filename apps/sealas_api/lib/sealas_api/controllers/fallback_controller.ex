@@ -15,6 +15,6 @@ defmodule SealasApi.FallbackController do
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
-    |> render(SealasApi.ErrorView, :"404")
+    |> render(SealasApi.ErrorView, :"404", %{})
   end
 end
