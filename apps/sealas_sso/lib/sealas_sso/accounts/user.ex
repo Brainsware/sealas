@@ -22,7 +22,7 @@ defmodule SealasSso.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email])
+    |> cast(attrs, [:email, :password])
     |> validate_required([:email])
   end
 end

@@ -4,7 +4,8 @@ use Mix.Config
 # you can enable the server option below.
 config :sealas_sso, SealasSso.Endpoint,
   http: [port: 4002],
-  server: false
+  server: false,
+  token_key: "sealas_auth_token_key_JGSKLvkfdklmsfvlk434vJKDgavkdmSDFfasldkfgq"
 
 config :sealas_sso, SealasSso.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
