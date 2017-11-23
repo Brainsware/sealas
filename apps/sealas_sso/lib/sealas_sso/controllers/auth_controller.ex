@@ -20,12 +20,12 @@ defmodule SealasSso.AuthController do
         |> render("auth.json", %{auth: SealasSso.AuthController.generate_token(conn, user)})
       true ->
         conn
-        |> put_status(:unauthorized)
+        |> put_status(:unauthorized) # http 401
         |> render("error.json")
     end
   end
 
-  def generate_token(conn, user) do
+  def generate_token(_conn, user) do
     key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
 
     jwk = %{"kty" => "oct", "k" => :base64url.encode(key)}
