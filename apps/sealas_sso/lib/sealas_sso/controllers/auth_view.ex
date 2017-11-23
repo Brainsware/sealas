@@ -1,6 +1,5 @@
 defmodule SealasSso.AuthView do
   use SealasSso, :view
-  alias SealasSso.AuthView
 
   def render("error.json", _params) do
     %{error: "auth fail"}
