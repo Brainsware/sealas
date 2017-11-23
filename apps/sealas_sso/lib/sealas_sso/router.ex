@@ -66,7 +66,6 @@ defmodule SealasSso.Router do
         {:error}
     end
   end
-
   def decrypt_token(_) do
     {:error}
   end
