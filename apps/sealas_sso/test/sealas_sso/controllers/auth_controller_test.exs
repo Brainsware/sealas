@@ -35,6 +35,13 @@ defmodule SealasSso.AuthControllerTest do
 
       {:ok, token_creatd_at} = DateTime.from_unix(token.fields["created_at"])
       assert DateTime.diff(DateTime.utc_now(), token_creatd_at) >= 0
+
+      conn = conn
+      |> recycle()
+      |> put_req_header("authorization", "bearer: " <> auth_token)
+      |> get(user_path(conn, :index))
+
+      assert json_response(conn, 200)
     end
 
     test "minimum request time", %{conn: conn} do
@@ -43,11 +50,17 @@ defmodule SealasSso.AuthControllerTest do
       get conn, auth_path(conn, :index), @failed_login
 
       diff = Time.diff(Time.utc_now(), time, :microsecond)
-      assert diff > @minimum_request_time
+      assert diff >= @minimum_request_time
     end
 
     test "fail to authenticate", %{conn: conn} do
       conn = get conn, auth_path(conn, :index), @failed_login
+      assert json_response(conn, 401) == %{"error" => "auth fail"}
+    end
+
+    test "get 401 for protected route", %{conn: conn} do
+      conn = conn |> get(user_path(conn, :index))
+
       assert json_response(conn, 401) == %{"error" => "auth fail"}
     end
   end
