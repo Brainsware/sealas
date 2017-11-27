@@ -9,9 +9,14 @@ defmodule SealasSso.AuthController do
   action_fallback SealasSso.FallbackController
 
   def index(conn, %{"email" => email, "password" => password}) do
-    user = Repo.get_by(User, email: email)
+    user = User.first(email: email)
+    user = Repo.preload(user, :user_tfa)
 
     cond do
+      user && user.user_tfa() != [] ->
+        conn
+        |> put_status(:created) # http 201
+        |> render("tfa.json", %{tfa: 123})
       user && checkpw(password, user.password) ->
         # generate session
         conn
@@ -22,6 +27,11 @@ defmodule SealasSso.AuthController do
         |> put_status(:unauthorized) # http 401
         |> render("error.json")
     end
+  end
+
+  def index(conn, %{"code" => code, "auth_key" => auth_key}) do
+    conn
+    |> render("error.json")
   end
 
   def create(conn, %{"user" => user_params}) do
