@@ -5,11 +5,18 @@ defmodule SealasSso.Router do
   @doc "Minimum request time in µs"
   @minimum_request_time 200_000
 
+  @doc """
+  Default SSO pipeline: accept requests in JSON format
+  All requests to SSO are delayed to take roughly @minimum_request_time to prevent timing attacks.
+  """
   pipeline :api do
     plug :accepts, ["json"]
     plug :request_timer
   end
 
+  @doc """
+  Pipeline for restricted routes, checks access token
+  """
   pipeline :auth do
     plug :check_token
   end
@@ -27,6 +34,10 @@ defmodule SealasSso.Router do
     resources "/", UserController
   end
 
+  @doc """
+  Registers a function to check time used to handle request.
+  Subtracts time taken from @minimum_request_time and waits for $result ms
+  """
   def request_timer(conn, _options) do
     time = Time.utc_now()
 
