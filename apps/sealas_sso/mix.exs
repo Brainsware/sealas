@@ -49,7 +49,8 @@ defmodule SealasSso.Mixfile do
       {:yubico, "~> 0.1"},
       {:guardian, "~> 1.0-beta"},
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:base_model, "~>0.2"}
     ]
   end
 

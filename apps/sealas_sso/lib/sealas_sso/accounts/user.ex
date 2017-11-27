@@ -1,9 +1,13 @@
 defmodule SealasSso.Accounts.User do
-  use Ecto.Schema
+  use BaseModel, repo: SealasSso.Repo
   import Ecto.Changeset
+
   alias SealasSso.Accounts.User
+  alias SealasSso.Accounts.UserTfa
 
   schema "users" do
+    has_many :user_tfa, UserTfa
+
     field :email,                :string
     field :password,             EctoHashedPassword
     field :password_hint,        :string
@@ -20,9 +24,14 @@ defmodule SealasSso.Accounts.User do
   end
 
   @doc false
-  def changeset(%User{} = user, attrs) do
+  def create_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, [:email, :locale])
+    |> validate_required([:email])
+  end
+
+  def test_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :password])
-    |> validate_required([:email])
   end
 end

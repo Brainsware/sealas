@@ -1,7 +1,6 @@
 defmodule SealasSso.AuthController do
   use SealasSso, :controller
 
-  alias SealasSso.Accounts
   alias SealasSso.Accounts.User
   alias SealasSso.Repo
 
@@ -17,7 +16,7 @@ defmodule SealasSso.AuthController do
         # generate session
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: SealasSso.AuthController.generate_token(conn, user)})
+        |> render("auth.json", %{auth: generate_token(user)})
       true ->
         conn
         |> put_status(:unauthorized) # http 401
@@ -25,7 +24,16 @@ defmodule SealasSso.AuthController do
     end
   end
 
-  def generate_token(_conn, user) do
+  def create(conn, %{"user" => user_params}) do
+    with {:ok, %User{} = user} <- User.create(user_params) do
+      conn
+      |> put_status(:created)
+      |> render("show.json", user: user)
+    end
+  end
+
+
+  defp generate_token(user) do
     key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
 
     jwk = %{"kty" => "oct", "k" => :base64url.encode(key)}
