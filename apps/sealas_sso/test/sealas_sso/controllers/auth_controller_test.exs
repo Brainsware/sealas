@@ -1,18 +1,25 @@
 defmodule SealasSso.AuthControllerTest do
   use SealasSso.ConnCase
 
-  alias SealasSso.Accounts
+  alias SealasSso.Repo
+  alias SealasSso.Accounts.User
 
   @minimum_request_time 200_000
 
   @create_attrs %{email: "some email", password: "some password"}
   @failed_login %{email: "some email", password: "wrong password"}
 
-  #@update_attrs %{email: "some updated email"}
-  #@invalid_attrs %{email: nil}
+  @registration_attrs %{email: "some@email.com", locale: "en"}
 
   def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+    {:ok, user} = %User{}
+      |> User.test_changeset(@create_attrs)
+      |> Repo.insert()
+    user
+  end
+
+  def fixture(:user, true) do
+    {:ok, user} = fixture(:user)
     user
   end
 
