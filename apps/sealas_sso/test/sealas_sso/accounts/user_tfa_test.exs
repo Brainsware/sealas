@@ -9,10 +9,10 @@ defmodule SealasSso.UserTfaTest do
 
     @create_user_attrs %{email: "some email", password: "some password"}
 
-    @valid_attrs %{type: "yubikey", auth_key: "ccccccflvtgbgenfjkgjvdvejridcbffilnhluinrjhl"}
+    @valid_attrs %{type: "yubikey", auth_key: "cccccccccccccccccccccccccccccccfilnhluinrjhl"}
     @invalid_attrs %{type: "yubikey", auth_key: nil}
 
-    def user_fixture(attrs \\ %{}) do
+    def user_fixture() do
       {:ok, user} = %User{}
         |> User.test_changeset(@create_user_attrs)
         |> Repo.insert()
