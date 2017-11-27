@@ -1,5 +1,6 @@
 %{"argon2_elixir": {:hex, :argon2_elixir, "1.2.9", "359502d89aa82c8a0b0b690e752a3120790528b5993299abbbcf0165fa1771bf", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
   "base64url": {:hex, :base64url, "0.0.1", "36a90125f5948e3afd7be97662a1504b934dd5dac78451ca6e9abf85a10286be", [], [], "hexpm"},
+  "base_model": {:hex, :base_model, "0.2.0", "4e2b662cece7b0fe6490cf9edaed54104e510f96fbffaf3360a051d430ed25a0", [], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: false]}, {:shorter_maps, "~> 2.0", [hex: :shorter_maps, repo: "hexpm", optional: false]}], "hexpm"},
   "comeonin": {:hex, :comeonin, "4.0.3", "4e257dcb748ed1ca2651b7ba24fdbd1bd24efd12482accf8079141e3fda23a10", [:mix], [{:argon2_elixir, "~> 1.2", [hex: :argon2_elixir, repo: "hexpm", optional: true]}, {:bcrypt_elixir, "~> 0.12.1 or ~> 1.0", [hex: :bcrypt_elixir, repo: "hexpm", optional: true]}, {:pbkdf2_elixir, "~> 0.12", [hex: :pbkdf2_elixir, repo: "hexpm", optional: true]}], "hexpm"},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
   "cowboy": {:hex, :cowboy, "1.1.2", "61ac29ea970389a88eca5a65601460162d370a70018afe6f949a29dca91f3bb0", [:rebar3], [{:cowlib, "~> 1.0.2", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.3.2", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
@@ -28,5 +29,6 @@
   "ranch": {:hex, :ranch, "1.3.2", "e4965a144dc9fbe70e5c077c65e73c57165416a901bd02ea899cfd95aa890986", [:rebar3], [], "hexpm"},
   "scrivener": {:hex, :scrivener, "2.4.0", "c9431804b13ac6a5c4b01eb32188c1ff926898a2d684244d021706841f022e66", [], [], "hexpm"},
   "scrivener_ecto": {:hex, :scrivener_ecto, "1.3.0", "69698428e22810ac8a47abc12d1df5b2f5d8f6b36dc5d5bfe6dd93fde857c576", [], [{:ecto, "~> 2.0", [hex: :ecto, repo: "hexpm", optional: false]}, {:postgrex, "~> 0.11.0 or ~> 0.12.0 or ~> 0.13.0", [hex: :postgrex, repo: "hexpm", optional: true]}, {:scrivener, "~> 2.4", [hex: :scrivener, repo: "hexpm", optional: false]}], "hexpm"},
+  "shorter_maps": {:hex, :shorter_maps, "2.2.4", "69b54de2f5a744964b4c1748d2d111a6fea34fa7440af03f8161be6655e703f0", [], [], "hexpm"},
   "uuid": {:hex, :uuid, "1.1.8", "e22fc04499de0de3ed1116b770c7737779f226ceefa0badb3592e64d5cfb4eb9", [], [], "hexpm"},
   "yubico": {:hex, :yubico, "0.1.5", "7935bdc0e1940473b716017dfa86c387d753c1322602e1e09b804b45751f2dea", [], [], "hexpm"}}
