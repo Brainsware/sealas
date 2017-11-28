@@ -50,3 +50,5 @@ config :sealas_sso, SealasSso.Endpoint,
       ~r{lib/sealas_sso/templates/.*(eex)$}
     ]
   ]
+
+import_config "config.secret.exs"
