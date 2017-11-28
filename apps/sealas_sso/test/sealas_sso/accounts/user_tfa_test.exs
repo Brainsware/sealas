@@ -50,9 +50,13 @@ defmodule SealasSso.UserTfaTest do
     end
   end
 
-  describe "yubikey functionality" do
+  describe "yubikey functions" do
     test "validate_yubikey/1 runs check against server and fails" do
-      assert {:bad_auth, :not_authentic_response} = UserTfa.validate_yubikey(@test_yubikey)
+      assert {:bad_auth, :not_authentic_response} = UserTfa.validate_yubikey(@test_yubikey, false)
+    end
+
+    test "validate_yubikey/1 runs check" do
+      assert {:auth, :ok} = UserTfa.validate_yubikey(@test_yubikey)
     end
 
     test "extracts yubikey key" do

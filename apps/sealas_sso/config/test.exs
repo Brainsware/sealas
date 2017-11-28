@@ -25,6 +25,6 @@ config :sealas_sso, SealasSso.Guardian,
   secret_key: "1alYndxVPyMsvGTYJdRKAJRbH69DKSZvxg1h9Lg3uXgE9VXh9AqLcF1VSmmoS8Ni"
 
 config :sealas_sso, SealasSso.Yubikey,
-  test_env: true
+  skip_server: true
 
 import_config "config.secret.exs"
