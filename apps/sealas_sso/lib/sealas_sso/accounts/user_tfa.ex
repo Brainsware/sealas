@@ -18,4 +18,22 @@ defmodule SealasSso.Accounts.UserTfa do
     |> cast(params, [:type, :auth_key, :user_id])
     |> validate_required(:auth_key)
   end
+
+  def validate_yubikey(key) do
+    client_id = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:client_id]
+    secret    = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:secret]
+    
+    cond do
+      client_id && secret ->
+        :yubico.simple_verify(key, client_id, secret, [])
+      true ->
+        {:error, :no_yubico_credentials}
+    end
+  end
+
+  def extract_yubikey(key) do
+    {key, _auth} = String.split_at(key, -32)
+
+    key
+  end
 end

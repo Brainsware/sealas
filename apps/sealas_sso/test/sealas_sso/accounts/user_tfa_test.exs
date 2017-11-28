@@ -2,16 +2,17 @@ defmodule SealasSso.UserTfaTest do
   use SealasSso.DataCase
 
   alias SealasSso.Repo
+  alias SealasSso.Accounts.User
+  alias SealasSso.Accounts.UserTfa
 
-  describe "user tfa" do
-    alias SealasSso.Accounts.User
-    alias SealasSso.Accounts.UserTfa
+  @create_user_attrs %{email: "some email", password: "some password"}
 
-    @create_user_attrs %{email: "some email", password: "some password"}
+  @valid_attrs %{type: "yubikey", auth_key: "cccccccccccccccccccccccccccccccfilnhluinrjhl"}
+  @invalid_attrs %{type: "yubikey", auth_key: nil}
 
-    @valid_attrs %{type: "yubikey", auth_key: "cccccccccccccccccccccccccccccccfilnhluinrjhl"}
-    @invalid_attrs %{type: "yubikey", auth_key: nil}
+  @test_yubikey "cccccccccccccccccccccccccccccccfilnhluinrjhl"
 
+  describe "user tfa schema" do
     def user_fixture() do
       {:ok, user} = %User{}
         |> User.test_changeset(@create_user_attrs)
@@ -46,6 +47,16 @@ defmodule SealasSso.UserTfaTest do
       tfa  = tfa_fixture(user)
 
       assert UserTfa.delete(tfa) == :ok
+    end
+  end
+
+  describe "yubikey functionality" do
+    test "validate_yubikey/1 runs check against server and fails" do
+      assert {:bad_auth, :not_authentic_response} = UserTfa.validate_yubikey(@test_yubikey)
+    end
+
+    test "extracts yubikey key" do
+      assert "cccccccccccc" == UserTfa.extract_yubikey(@test_yubikey)
     end
   end
 end
