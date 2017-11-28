@@ -23,6 +23,12 @@ defmodule SealasSso.Accounts.User do
     timestamps()
   end
 
+  def create_random_password(length \\ 16) do
+    :crypto.strong_rand_bytes(length)
+    |> Base.url_encode64
+    |> binary_part(0, length)
+  end
+
   @doc false
   def create_changeset(%User{} = user, attrs) do
     user
