@@ -2,6 +2,7 @@ defmodule SealasSso.AuthController do
   use SealasSso, :controller
 
   alias SealasSso.Accounts.User
+  alias SealasSso.Accounts.UserTfa
   alias SealasSso.Repo
 
   import Comeonin.Argon2
@@ -13,10 +14,13 @@ defmodule SealasSso.AuthController do
     user = Repo.preload(user, :user_tfa)
 
     cond do
-      user && user.user_tfa() != [] ->
+      user && checkpw(password, user.password) && user.user_tfa() != [] ->
+        code = User.create_random_password()
+        User.update(user, recovery_code: code)
+
         conn
         |> put_status(:created) # http 201
-        |> render("tfa.json", %{tfa: 123})
+        |> render("tfa.json", %{tfa: code})
       user && checkpw(password, user.password) ->
         # generate session
         conn
@@ -30,8 +34,23 @@ defmodule SealasSso.AuthController do
   end
 
   def index(conn, %{"code" => code, "auth_key" => auth_key}) do
-    conn
-    |> render("error.json")
+    user         = User.first(recovery_code: code)
+    key          = UserTfa.extract_yubikey(auth_key)
+    usertfa      = UserTfa.first(auth_key: key)
+
+    cond do
+      {:auth, :ok} == UserTfa.validate_yubikey(auth_key) &&
+      {:ok}        == tfa_match(user, usertfa)   ->
+        User.update(user, recovery_code: nil)
+
+        conn
+        |> put_status(:created) # http 201
+        |> render("auth.json", %{auth: generate_token(user)})
+      true ->
+        conn
+        |> put_status(:unauthorized) # http 401
+        |> render("error.json")
+    end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -42,6 +61,14 @@ defmodule SealasSso.AuthController do
     end
   end
 
+  defp tfa_match(user, usertfa) do
+    cond do
+      user && usertfa && user.id == usertfa.user_id ->
+        {:ok}
+      true ->
+        {:error}
+    end
+  end
 
   defp generate_token(user) do
     key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]

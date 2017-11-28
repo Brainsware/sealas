@@ -10,7 +10,8 @@ defmodule SealasSso.AuthControllerTest do
   @create_attrs %{email: "some email", password: "some password"}
   @failed_login %{email: "some email", password: "wrong password"}
 
-  @create_tfa_attrs %{type: "yubikey", auth_key: "cccccccccccccccccccccccccccccccfilnhluinrjhl"}
+  @create_tfa_attrs %{type: "yubikey", auth_key: "cccccccccccc"}
+  @test_yubikey "cccccccccccccccccccccccccccccccfilnhluinrjhl"
 
   @registration_attrs %{email: "some@email.com", locale: "en"}
 
@@ -66,7 +67,7 @@ defmodule SealasSso.AuthControllerTest do
       assert json_response(conn, 200)
     end
 
-    test "fail to authenticate", %{conn: conn} do
+    test "fail to authenticate with wrong password", %{conn: conn} do
       conn = get conn, auth_path(conn, :index), @failed_login
       assert json_response(conn, 401) == %{"error" => "auth fail"}
     end
@@ -85,13 +86,21 @@ defmodule SealasSso.AuthControllerTest do
       conn = get conn, auth_path(conn, :index), @create_attrs
       assert %{"tfa" => true, "code" => tfa_code} = json_response(conn, 201)
 
-      conn = get conn, auth_path(conn, :index), %{code: tfa_code, auth_key: "cccccccccccccccccccccccccccccccfilnhluinrjhl"}
-      assert json_response(conn, 201) == []
+      conn = get conn, auth_path(conn, :index), %{code: tfa_code, auth_key: @test_yubikey}
+      assert %{"auth" => auth_token} = json_response(conn, 201)
+    end
+
+    test "fail to authenticate with wrong password", %{conn: conn} do
+      conn = get conn, auth_path(conn, :index), @failed_login
+      assert json_response(conn, 401) == %{"error" => "auth fail"}
     end
 
     test "failed authentication with TFA", %{conn: conn} do
       conn = get conn, auth_path(conn, :index), @create_attrs
       assert %{"tfa" => true, "code" => tfa_code} = json_response(conn, 201)
+
+      conn = get conn, auth_path(conn, :index), %{code: "wrong code!", auth_key: "wrong key!"}
+      assert json_response(conn, 401) == %{"error" => "auth fail"}
 
       conn = get conn, auth_path(conn, :index), %{code: tfa_code, auth_key: "wrong key!"}
       assert json_response(conn, 401) == %{"error" => "auth fail"}
@@ -105,11 +114,9 @@ defmodule SealasSso.AuthControllerTest do
     end
 
     test "register with an existing email", %{conn: conn} do
-      assert false
     end
 
     test "register with an existing unvalidated email", %{conn: conn} do
-      assert false
     end
   end
 
