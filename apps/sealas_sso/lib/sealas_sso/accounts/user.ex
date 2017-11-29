@@ -23,6 +23,7 @@ defmodule SealasSso.Accounts.User do
     timestamps()
   end
 
+  @spec create_random_password(integer) :: String.t
   def create_random_password(length \\ 16) do
     :crypto.strong_rand_bytes(length)
     |> Base.url_encode64
@@ -30,12 +31,16 @@ defmodule SealasSso.Accounts.User do
   end
 
   @doc false
-  def create_changeset(%User{} = user, attrs) do
-    user
-    |> cast(attrs, [:email, :locale])
+  @spec create_changeset(map) :: %Ecto.Changeset{}
+  def create_changeset(params) do
+    %__MODULE__{}
+    |> cast(params, [:email, :locale])
     |> validate_required([:email])
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
   end
 
+  @spec test_changeset(%User{}, map) :: %Ecto.Changeset{}
   def test_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :password])

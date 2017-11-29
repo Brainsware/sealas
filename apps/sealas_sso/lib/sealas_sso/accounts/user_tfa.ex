@@ -13,12 +13,15 @@ defmodule SealasSso.Accounts.UserTfa do
     timestamps()
   end
 
+  @spec create_changeset(map) :: %Ecto.Changeset{}
   def create_changeset(params) do
     %__MODULE__{}
     |> cast(params, [:type, :auth_key, :user_id])
     |> validate_required(:auth_key)
+    |> validate_format(:type, ~r/yubikey/)
   end
 
+  @spec validate_yubikey(String.t, boolean) :: {}
   def validate_yubikey(key, enable_test \\ true) do
     client_id   = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:client_id]
     secret      = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:secret]
@@ -34,6 +37,7 @@ defmodule SealasSso.Accounts.UserTfa do
     end
   end
 
+  @spec extract_yubikey(String.t) :: String.t
   def extract_yubikey(key) do
     {key, _auth} = String.split_at(key, -32)
 
