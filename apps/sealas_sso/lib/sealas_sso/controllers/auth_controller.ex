@@ -9,6 +9,7 @@ defmodule SealasSso.AuthController do
 
   action_fallback SealasSso.FallbackController
 
+  @spec index(Plug.Conn.t, %{"email" => String.t, "password" => String.t}) :: Plug.Conn.t
   def index(conn, %{"email" => email, "password" => password}) do
     user = User.first(email: email)
     user = Repo.preload(user, :user_tfa)
@@ -33,6 +34,7 @@ defmodule SealasSso.AuthController do
     end
   end
 
+  @spec index(Plug.Conn.t, %{"code" => String.t, "auth_key" => String.t}) :: Plug.Conn.t
   def index(conn, %{"code" => code, "auth_key" => auth_key}) do
     user         = User.first(recovery_code: code)
     key          = UserTfa.extract_yubikey(auth_key)
@@ -61,6 +63,7 @@ defmodule SealasSso.AuthController do
     end
   end
 
+  @spec tfa_match(%User{}, %UserTfa{}) :: {}
   defp tfa_match(user, usertfa) do
     cond do
       user && usertfa && user.id == usertfa.user_id ->
@@ -70,6 +73,7 @@ defmodule SealasSso.AuthController do
     end
   end
 
+  @spec generate_token(%User{}) :: String.t
   defp generate_token(user) do
     key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
 
