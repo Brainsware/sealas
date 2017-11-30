@@ -7,24 +7,22 @@ defmodule SealasSso.AuthControllerTest do
 
   @minimum_request_time 190_000
 
-  @create_attrs %{email: "some email", password: "some password"}
+  @create_attrs %{email: "some email", password: "some password", active: true}
   @failed_login %{email: "some email", password: "wrong password"}
 
   @create_tfa_attrs %{type: "yubikey", auth_key: "cccccccccccc"}
   @test_yubikey "cccccccccccccccccccccccccccccccfilnhluinrjhl"
 
-  @registration_attrs %{email: "some@email.com", locale: "en"}
-
   def fixture(:user) do
     {:ok, user} = %User{}
-      |> User.test_changeset(@create_attrs)
+      |> User.create_test_changeset(@create_attrs)
       |> Repo.insert()
     user
   end
 
   def fixture(:user, :with_tfa) do
     user = fixture(:user)
-    {:ok, tfa}  = UserTfa.create(Map.put(@create_tfa_attrs, :user, user))
+    {:ok, _tfa}  = UserTfa.create(Map.put(@create_tfa_attrs, :user, user))
     user
   end
 
@@ -87,7 +85,7 @@ defmodule SealasSso.AuthControllerTest do
       assert %{"tfa" => true, "code" => tfa_code} = json_response(conn, 201)
 
       conn = get conn, auth_path(conn, :index), %{code: tfa_code, auth_key: @test_yubikey}
-      assert %{"auth" => auth_token} = json_response(conn, 201)
+      assert %{"auth" => _auth_token} = json_response(conn, 201)
     end
 
     test "fail to authenticate with wrong password", %{conn: conn} do
@@ -107,16 +105,14 @@ defmodule SealasSso.AuthControllerTest do
     end
   end
 
-  describe "registration" do
-    test "register as a new user", %{conn: conn} do
-      conn = post conn, user_path(conn, :create), user: @registration_attrs
-      assert %{"id" => id} = json_response(conn, 201)["data"]
-    end
+  describe "unvalidated user" do
+    test "fail to authenticate with unvalidated user", %{conn: conn} do
+      {:ok, user} = %User{}
+        |> User.create_test_changeset(%{email: "email", activation_code: "code", active: false})
+        |> Repo.insert()
 
-    test "register with an existing email", %{conn: conn} do
-    end
-
-    test "register with an existing unvalidated email", %{conn: conn} do
+      conn = get conn, auth_path(conn, :index), %{email: "email", password: "password"}
+      assert %{"error" => "retry_validation", "activation_code" => _code} = json_response(conn, 400)
     end
   end
 

@@ -5,6 +5,10 @@ defmodule SealasSso.AuthView do
     %{error: "auth fail"}
   end
 
+  def render("retry.json", %{activation_code: activation_code}) do
+    %{error: "retry_validation", activation_code: activation_code}
+  end
+
   def render("tfa.json", %{tfa: tfa}) do
     %{tfa: true, code: tfa}
   end
