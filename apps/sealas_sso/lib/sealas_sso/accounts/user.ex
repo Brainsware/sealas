@@ -34,7 +34,7 @@ defmodule SealasSso.Accounts.User do
   @spec create_changeset(map) :: %Ecto.Changeset{}
   def create_changeset(params) do
     %__MODULE__{}
-    |> cast(params, [:email, :locale])
+    |> cast(params, [:email, :locale, :activation_code])
     |> validate_required([:email])
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
