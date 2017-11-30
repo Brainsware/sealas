@@ -16,12 +16,10 @@ install:
   - cinst elixir
   - cinst mingw
   - yarn
-  - mix local.hex --force
-  - mix local.rebar --force
+  - make mix-tools
 
 build_script:
-  - mix deps.get
-  - mix compile
+  - make mix-prepare
 
 before_test:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
@@ -29,5 +27,4 @@ before_test:
 
 test_script:
   - yarn run mdlint
-  - mix compile
-  - mix test
+  - make mix-test

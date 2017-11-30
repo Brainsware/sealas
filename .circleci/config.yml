@@ -20,7 +20,6 @@ jobs:
       # specify any bash command here prefixed with `run: `
       - run: npm i
       - run: npm run mdlint
-      - run: mix local.hex --force
-      - run: mix local.rebar --force
-      - run: mix deps.get
-      - run: mix test
+      - run: make mix-tools
+      - run: make mix-prepare
+      - run: make mix-test
