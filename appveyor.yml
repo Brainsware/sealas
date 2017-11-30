@@ -13,6 +13,7 @@ init:
   - SET PGPASSWORD=Password12!
 
 install:
+  - cinst erlang --version 20.0
   - cinst elixir
   - cinst mingw
   - yarn
