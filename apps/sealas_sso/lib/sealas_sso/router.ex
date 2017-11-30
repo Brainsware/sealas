@@ -24,7 +24,8 @@ defmodule SealasSso.Router do
   scope "/", SealasSso do
     pipe_through :api
 
-    resources "/auth", AuthController
+    get  "/auth", AuthController, :index
+    post "/registration", RegistrationController, :create
   end
 
   scope "/user", SealasSso do
