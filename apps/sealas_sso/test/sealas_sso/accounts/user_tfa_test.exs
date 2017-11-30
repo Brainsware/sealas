@@ -51,6 +51,7 @@ defmodule SealasSso.UserTfaTest do
   end
 
   describe "yubikey functions" do
+    @tag external: true
     test "validate_yubikey/1 runs check against server and fails" do
       assert {:bad_auth, :not_authentic_response} = UserTfa.validate_yubikey(@test_yubikey, false)
     end
