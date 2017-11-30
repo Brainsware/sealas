@@ -9,7 +9,7 @@ defmodule SealasSso.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.4",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -46,8 +46,13 @@ defmodule SealasSso.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
+      {:yubico, "~> 0.1"},
+      {:guardian, "~> 1.0-beta"},
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:base_model, "~>0.2"},
+      {:swoosh, "~> 0.11"},
+      {:phoenix_swoosh, "~> 0.2"},
     ]
   end
 

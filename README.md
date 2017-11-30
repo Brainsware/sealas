@@ -14,6 +14,10 @@ Travis CI: [![Travis CI Build Status](https://travis-ci.org/Brainsware/sealas.sv
 CircleCI: [![CircleCI Build Status](https://circleci.com/gh/Brainsware/sealas.svg?style=svg)](https://circleci.com/gh/Brainsware/sealas)
 AppVeyor: [![AppVyor Build status](https://ci.appveyor.com/api/projects/status/va3txhnkajgnq82b/branch/master?svg=true)](https://ci.appveyor.com/project/Brainsware/sealas/branch/master)
 
+### Elixir status
+
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/Brainsware/sealas.svg)](https://beta.hexfaktor.org/github/Brainsware/sealas)
+
 ## Development
 
 To start dev server:

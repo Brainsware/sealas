@@ -14,6 +14,7 @@ config :sealas_sso,
 config :sealas_sso, SealasSso.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "1W83oJ9rFUFj7FEP/5tMIn5/ZGkcYbqGNY+IZYRHv8rSVG/RpgooWfoRnGebIwQy",
+  auth_salt: "sealas_user_auth_salt_FJKA$JKT3Ifoijaofjisdf",
   render_errors: [view: SealasSso.ErrorView, accepts: ~w(html json)],
   pubsub: [name: SealasSso.PubSub,
            adapter: Phoenix.PubSub.PG2]
