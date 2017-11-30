@@ -40,9 +40,14 @@ defmodule SealasSso.Accounts.User do
     |> unique_constraint(:email)
   end
 
-  @spec test_changeset(%User{}, map) :: %Ecto.Changeset{}
-  def test_changeset(%User{} = user, attrs) do
+  @doc """
+  Just for testing
+
+  only during testing do we ever need to create a user from a blob of hash attributes
+  """
+  @spec create_test_changeset(%User{}, map) :: %Ecto.Changeset{}
+  def create_test_changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :password_hint, :salt, :name, :locale, :active, :activation_code])
   end
 end

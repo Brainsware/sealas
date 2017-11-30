@@ -15,7 +15,7 @@ defmodule SealasSso.UserTfaTest do
   describe "user tfa schema" do
     def user_fixture() do
       {:ok, user} = %User{}
-        |> User.test_changeset(@create_user_attrs)
+        |> User.create_test_changeset(@create_user_attrs)
         |> Repo.insert()
 
       user
