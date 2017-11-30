@@ -6,6 +6,11 @@ services:
 node_js:
   - '6'
 
+# skip Travis CI's install step
+# because it executes `mix local.rebar --force`
+# but that requires that our secrets config file exists
+# which is the sole reason we wrote a Makefile to begin with
+install: true
 cache:
   - yarn
 before_script:
