@@ -1,6 +1,6 @@
 secret_config = apps/sealas_sso/config/config.secret.exs
 $(secret_config):
-	echo 'use Mix.Config' > $(secret_config)
+	echo use Mix.Config > $(secret_config)
 
 mix-tools: $(secret_config)
 	mix local.hex --force
