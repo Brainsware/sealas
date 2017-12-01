@@ -27,3 +27,7 @@ before_script:
 script:
   - yarn run mdlint
   - make mix-test
+
+after_script:
+  - MIX_ENV=docs mix deps.get
+  - MIX_ENV=docs mix inch.report
