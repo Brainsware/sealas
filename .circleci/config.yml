@@ -34,7 +34,6 @@ jobs:
       - run: make mix-tools
       - run: make mix-prepare
       - run: make mix-test
-      - run: make mix-dialyzer
 
       - save_cache:
           key: v1-npm-{{ checksum "package-lock.json" }}
@@ -44,3 +43,5 @@ jobs:
           key: erlang-20.1_elixir-1.5.2.plt
           paths:
             - _mix_ci
+
+      - run: make mix-dialyzer
