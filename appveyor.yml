@@ -20,7 +20,6 @@ install:
   - cinst erlang --version 20.0
   - cinst elixir
   - cinst mingw
-  - choco install VisualCppBuildTools
   - yarn
   - nmake mix-tools
 
