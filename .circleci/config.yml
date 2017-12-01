@@ -20,16 +20,27 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - sealas-npm-{{ checksum "package-lock.json" }}
+            - v1-npm-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      - run: npm i
-      - save_cache:
-          key: sealas-npm-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          keys:
+            - erlang-20.1_elixir-1.5.2.plt
           paths:
-            - node_modules
+            - _mix_ci
 
+      - run: npm i
       - run: npm run mdlint
       - run: make mix-tools
       - run: make mix-prepare
       - run: make mix-test
+      - run: make mix-dialyzer
+
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: erlang-20.1_elixir-1.5.2.plt
+          paths:
+            - _mix_ci
