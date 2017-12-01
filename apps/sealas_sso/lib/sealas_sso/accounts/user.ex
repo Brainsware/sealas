@@ -32,6 +32,10 @@ defmodule SealasSso.Accounts.User do
     timestamps()
   end
 
+  @doc """
+  Create a random string of characters
+  For use as a password or activation/recovery code. Or anything else, really.
+  """
   @spec create_random_password(integer) :: String.t
   def create_random_password(length \\ 16) do
     :crypto.strong_rand_bytes(length)
@@ -39,7 +43,10 @@ defmodule SealasSso.Accounts.User do
     |> binary_part(0, length)
   end
 
-  @doc false
+  @doc """
+  Create changeset for registration
+  Registration only requires email, locale and an activation code
+  """
   @spec create_changeset(map) :: %Ecto.Changeset{}
   def create_changeset(params) do
     %__MODULE__{}
