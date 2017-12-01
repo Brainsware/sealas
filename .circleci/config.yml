@@ -30,23 +30,6 @@ jobs:
             - node_modules
 
       - run: npm run mdlint
-
-      - restore_cache:
-          keys:
-            - sealas-mix-{{ checksum "mix.lock" }}
-          paths:
-            - _build
-            - deps
-            - _mix_ci
-
-      - run: mix local.hex --force
-      - run: mix local.rebar --force
-      - run: mix deps.get
-      - run: mix test
-      - run: mix dialyzer --halt-exit-status
-      - save_cache:
-          key: sealas-mix-{{ checksum "mix.lock" }}
-          paths:
-            - _build
-            - deps
-            - _mix_ci
+      - run: make mix-tools
+      - run: make mix-prepare
+      - run: make mix-test
