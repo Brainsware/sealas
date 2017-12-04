@@ -28,7 +28,7 @@ defmodule SealasSso.Accounts.UserTfa do
   Validate a yubikey against the yubico API.
   If enable_test and the skip_server value in the config are true, it will always return a success.
   """
-  @spec validate_yubikey(String.t, boolean) :: {}
+  @spec validate_yubikey(String.t, boolean) :: tuple
   def validate_yubikey(key, enable_test \\ true) do
     client_id   = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:client_id]
     secret      = Application.get_env(:sealas_sso, SealasSso.Yubikey)[:secret]

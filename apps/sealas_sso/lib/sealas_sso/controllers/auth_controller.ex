@@ -81,7 +81,7 @@ defmodule SealasSso.AuthController do
   @doc """
   Checks for valid User and UserTFA entries and checks for a valid TFA key.
   """
-  @spec tfa_match(%User{}, %UserTfa{}) :: {}
+  @spec tfa_match(%User{}, %UserTfa{}) :: {:ok} | {:error}
   defp tfa_match(user, usertfa) do
     cond do
       user && usertfa && user.id == usertfa.user_id ->

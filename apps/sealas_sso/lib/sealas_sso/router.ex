@@ -51,22 +51,22 @@ defmodule SealasSso.Router do
     end)
   end
 
-  @spec request_timer(Plug.Conn.t, any) :: Plug.Conn.t
+  @spec check_token(Plug.Conn.t, any) :: Plug.Conn.t
   def check_token(conn, _options) do
-    token = conn |> get_req_header("authorization")
+    token = get_req_header(conn, "authorization")
 
     case decrypt_token(List.first(token)) do
       {:error} ->
         conn
-          |> put_status(:unauthorized)
-          |> render(SealasSso.ErrorView, "401.json")
-          |> halt
+        |> put_status(:unauthorized)
+        |> render(SealasSso.ErrorView, "401.json")
+        |> halt
       _ ->
         conn
     end
   end
 
-  @spec decrypt_token(String.t) :: {}
+  @spec decrypt_token(String.t) :: {:ok, String.t} | {:error}
   def decrypt_token(auth_token) when is_binary(auth_token) do
     auth_token = List.last(Regex.run(~r/(bearer\: )?(.+)/, auth_token))
 
@@ -82,6 +82,7 @@ defmodule SealasSso.Router do
     end
   end
 
+  @spec decrypt_token(any) :: {:error}
   def decrypt_token(_) do
     {:error}
   end
