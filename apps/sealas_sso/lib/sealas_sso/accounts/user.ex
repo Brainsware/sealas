@@ -1,9 +1,4 @@
 defmodule SealasSso.Accounts.User do
-  @moduledoc """
-  This module holds our users schema.
-  It's the point for all interactions via Ecto.
-  """
-
   use BaseModel, repo: SealasSso.Repo
   import Ecto.Changeset
 
@@ -11,7 +6,7 @@ defmodule SealasSso.Accounts.User do
   alias SealasSso.Accounts.UserTfa
 
   @doc """
-  We only identify users by email. Note that password, password_backup and
+  We only identify users by email. Note that password and password_backup
   are cryptographic hashes, not the original entry!
   """
   schema "users" do
@@ -59,7 +54,7 @@ defmodule SealasSso.Accounts.User do
   @doc """
   Just for testing
 
-  only during testing do we ever need to create a user from a blob of hash attributes
+  Only during testing do we ever need to create a user from a blob of hash attributes
   """
   @spec create_test_changeset(%User{}, map) :: %Ecto.Changeset{}
   def create_test_changeset(%User{} = user, attrs) do
