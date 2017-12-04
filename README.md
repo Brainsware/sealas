@@ -17,6 +17,7 @@ AppVeyor: [![AppVyor Build status](https://ci.appveyor.com/api/projects/status/v
 ### Elixir status
 
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/Brainsware/sealas.svg)](https://beta.hexfaktor.org/github/Brainsware/sealas)
+[![Inline docs](https://inch-ci.org/github/Brainsware/sealas.svg?branch=master&style=flat)](https://inch-ci.org/github/Brainsware/sealas)
 
 ## Development
 
