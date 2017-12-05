@@ -47,6 +47,7 @@ defmodule SealasApi.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:inch_ex, only: :docs},
       {:scrivener_ecto, "~> 1.3.0"}
     ]
   end
