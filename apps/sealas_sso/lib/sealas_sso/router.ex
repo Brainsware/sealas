@@ -59,7 +59,6 @@ defmodule SealasSso.Router do
       {:error} ->
         conn
         |> put_status(:unauthorized)
-        |> render(SealasSso.ErrorView, "401.json")
         |> halt
       _ ->
         conn
