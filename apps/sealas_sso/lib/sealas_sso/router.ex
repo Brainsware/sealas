@@ -58,7 +58,8 @@ defmodule SealasSso.Router do
     case decrypt_token(List.first(token)) do
       {:error} ->
         conn
-        |> put_status(:unauthorized)
+        |> put_resp_content_type("application/json")
+        |> send_resp(:unauthorized, "{\"error\": \"auth fail\"}")
         |> halt
       _ ->
         conn
