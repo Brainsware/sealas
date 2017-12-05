@@ -5,6 +5,10 @@ defmodule SealasSso.Accounts.User do
   alias SealasSso.Accounts.User
   alias SealasSso.Accounts.UserTfa
 
+  @doc """
+  We only identify users by email. Note that password and password_backup
+  are cryptographic hashes, not the original entry!
+  """
   schema "users" do
     has_many :user_tfa, UserTfa
 
@@ -23,6 +27,10 @@ defmodule SealasSso.Accounts.User do
     timestamps()
   end
 
+  @doc """
+  Create a random string of characters
+  For use as a password or activation/recovery code. Or anything else, really.
+  """
   @spec create_random_password(integer) :: String.t
   def create_random_password(length \\ 16) do
     :crypto.strong_rand_bytes(length)
@@ -30,7 +38,10 @@ defmodule SealasSso.Accounts.User do
     |> binary_part(0, length)
   end
 
-  @doc false
+  @doc """
+  Create changeset for registration
+  Registration only requires email, locale and an activation code
+  """
   @spec create_changeset(map) :: %Ecto.Changeset{}
   def create_changeset(params) do
     %__MODULE__{}
@@ -43,7 +54,7 @@ defmodule SealasSso.Accounts.User do
   @doc """
   Just for testing
 
-  only during testing do we ever need to create a user from a blob of hash attributes
+  Only during testing do we ever need to create a user from a blob of hash attributes
   """
   @spec create_test_changeset(%User{}, map) :: %Ecto.Changeset{}
   def create_test_changeset(%User{} = user, attrs) do

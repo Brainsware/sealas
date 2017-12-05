@@ -13,13 +13,35 @@ jobs:
           POSTGRES_DB: sealas
           POSTGRES_PASSWORD: "sealas"
 
-    working_directory: ~/repo
+    working_directory: ~/sealas
+    environment:
+      MIX_HOME: /home/circleci/sealas/_mix_ci
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - restore_cache:
+          keys:
+            - erlang-20.1_elixir-1.5.2.plt
+          paths:
+            - _mix_ci
 
-      # specify any bash command here prefixed with `run: `
       - run: npm i
       - run: npm run mdlint
       - run: make mix-tools
       - run: make mix-prepare
       - run: make mix-test
+
+      - save_cache:
+          key: v1-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: erlang-20.1_elixir-1.5.2.plt
+          paths:
+            - _mix_ci
+
+      - run: make mix-dialyzer

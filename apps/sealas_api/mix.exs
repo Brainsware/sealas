@@ -46,7 +46,7 @@ defmodule SealasApi.Mixfile do
       {:cowboy, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:scrivener_ecto, "~> 1.3.0"}
     ]
   end

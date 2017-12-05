@@ -1,8 +1,17 @@
 defmodule EctoHashedPassword do
-  @behaviour Ecto.Type
+  @moduledoc """
+  Ecto type for hashed passwords.
 
+  Automatically hashes all stored passwords.
+  """
+
+  @dialyzer {:nowarn_function, checkpw: 2}
+  @behaviour Ecto.Type
   def type, do: :string
 
+  @doc """
+  Hash password with currenly used hashing algorithm
+  """
   def cast(password) when is_binary(password) do
     {:ok, Comeonin.Argon2.hashpwsalt(password)}
   end
@@ -14,7 +23,11 @@ defmodule EctoHashedPassword do
   def dump(password) when is_binary(password), do: {:ok, password}
   def dump(_), do: :error
 
-  def check(password, hash) do
+  @doc """
+  Check password against hash with currently used hashing algorithm.
+  """
+  @spec checkpw(String.t, String.t) :: boolean
+  def checkpw(password, hash) do
     Comeonin.Argon2.checkpw(password, hash)
   end
 end

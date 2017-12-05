@@ -1,10 +1,20 @@
 defmodule SealasSso.RegistrationController do
+  @moduledoc """
+  Controller for all registration actions, including user verification
+  """
+
   use SealasSso, :controller
 
   alias SealasSso.Accounts.User
 
   action_fallback SealasSso.FallbackController
 
+  @doc """
+  First step to registration, check email, create new user with it.
+
+  Also sends out e-mail with verification code in later version.
+  """
+  @spec create(Plug.Conn.t, %{user: %{}}) :: Plug.Conn.t
   def create(conn, %{"user" => user_params}) do
     code = User.create_random_password()
     user_params = Enum.into(%{"activation_code" => code}, user_params)

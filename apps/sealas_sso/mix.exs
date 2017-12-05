@@ -50,6 +50,7 @@ defmodule SealasSso.Mixfile do
       {:guardian, "~> 1.0-beta"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
+      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:base_model, "~>0.2"},
       {:swoosh, "~> 0.11"},
       {:phoenix_swoosh, "~> 0.2"},
