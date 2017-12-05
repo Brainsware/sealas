@@ -81,7 +81,7 @@ defmodule SealasSso.Router do
     end
   end
 
-  @spec decrypt_token(any) :: {:error}
+  @spec decrypt_token(nil) :: {:error}
   def decrypt_token(_) do
     {:error}
   end

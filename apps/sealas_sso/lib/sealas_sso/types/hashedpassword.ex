@@ -5,6 +5,7 @@ defmodule EctoHashedPassword do
   Automatically hashes all stored passwords.
   """
 
+  @dialyzer {:nowarn_function, checkpw: 2}
   @behaviour Ecto.Type
   def type, do: :string
 
