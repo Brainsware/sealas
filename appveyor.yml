@@ -20,11 +20,12 @@ install:
   - cinst erlang --version 20.0
   - cinst elixir
   - cinst mingw
+  - cinst make
   - yarn
-  - nmake mix-tools
+  - make mix-tools
 
 build_script:
-  - nmake mix-prepare
+  - make mix-prepare
 
 before_test:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
@@ -32,5 +33,5 @@ before_test:
 
 test_script:
   - yarn run mdlint
-  - nmake mix-test
-  - name mix-dialyzer
+  - make mix-test
+  - make mix-dialyzer
