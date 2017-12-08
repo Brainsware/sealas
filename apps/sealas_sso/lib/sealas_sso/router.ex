@@ -51,6 +51,11 @@ defmodule SealasSso.Router do
     end)
   end
 
+  @doc """
+  Checks authentication token from authorization header.
+
+  If this fails, send 401 with message "error": "auth_fail" as JSON
+  """
   @spec check_token(Plug.Conn.t, any) :: Plug.Conn.t
   def check_token(conn, _options) do
     token = get_req_header(conn, "authorization")
@@ -59,13 +64,18 @@ defmodule SealasSso.Router do
       {:error} ->
         conn
         |> put_resp_content_type("application/json")
-        |> send_resp(:unauthorized, "{\"error\": \"auth fail\"}")
+        |> send_resp(:unauthorized, "{\"error\": \"auth_fail\"}")
         |> halt
       _ ->
         conn
     end
   end
 
+  @doc """
+  Decrypt an authentication token
+
+  Format "bearer: tokengoeshere" will be accepted and parsed out.
+  """
   @spec decrypt_token(String.t) :: {:ok, String.t} | {:error}
   def decrypt_token(auth_token) when is_binary(auth_token) do
     auth_token = List.last(Regex.run(~r/(bearer\: )?(.+)/, auth_token))
