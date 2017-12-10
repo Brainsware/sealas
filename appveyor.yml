@@ -4,7 +4,6 @@ services:
 
 cache:
   - C:\ProgramData\chocolatey
-  - C:\tools\mingw64
   - C:\Program Files\erl9.0
   - _build
   - deps
@@ -12,19 +11,19 @@ cache:
   - _mix_ci
 init:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64\vcvars64.bat"
-  - SET PATH=C:\ProgramData\chocolatey\lib\Elixir\bin;C:\tools\mingw64\bin;%PATH%
+  - SET PATH=C:\ProgramData\chocolatey\lib\Elixir\bin;%PATH%
   - SET PATH=C:\Program Files\PostgreSQL\9.6\bin\;%PATH%
   - SET PGUSER=postgres
   - SET PGPASSWORD=Password12!
 install:
   - cinst erlang --version 20.0
   - cinst elixir
-  - cinst mingw
+  - cinst make
   - yarn
-  - nmake mix-tools
+  - make mix-tools
 
 build_script:
-  - nmake mix-prepare
+  - make mix-prepare
 
 before_test:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
@@ -32,5 +31,5 @@ before_test:
 
 test_script:
   - yarn run mdlint
-  - nmake mix-test
-  - name mix-dialyzer
+  - make mix-test
+  - make mix-dialyzer
