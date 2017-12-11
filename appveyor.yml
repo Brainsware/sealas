@@ -24,7 +24,7 @@ install:
 
 build_script:
   - cmd: 'cmd /K "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64'
-  - nmake mix-prepare
+  - cmd: nmake mix-prepare
 
 before_test:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
