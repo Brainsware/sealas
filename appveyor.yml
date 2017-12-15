@@ -32,4 +32,6 @@ before_test:
 test_script:
   - yarn run mdlint
   - nmake mix-test
-  - name mix-dialyzer
+  - file _build\test\lib\argon2_elixir\priv\argon2_nif.dll
+  - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
+  #- name mix-dialyzer
