@@ -11,22 +11,22 @@ cache:
   - _mix_ci
 init:
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - SET PATH=C:\ProgramData\chocolatey\lib\Elixir\bin;%PATH%
   - SET PATH=C:\Program Files\PostgreSQL\9.6\bin\;%PATH%
   - SET PGUSER=postgres
   - SET PGPASSWORD=Password12!
 install:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - cinst erlang --version 20.0
   - cinst elixir
   - yarn
   - nmake mix-tools
 
 build_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - nmake mix-prepare
-  - file _build\test\lib\argon2_elixir\priv\argon2_nif.dll
+  - file deps\argon2_elixir\priv\argon2_nif.dll
   - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
 
 before_test:
@@ -34,9 +34,11 @@ before_test:
   - psql -c "create database sealas with owner sealas;" -U postgres
 
 test_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - yarn run mdlint
-  - file _build\test\lib\argon2_elixir\priv\argon2_nif.dll
+  - file deps\argon2_elixir\priv\argon2_nif.dll
   - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
-  - nmake mix-test
+  #- nmake mix-test
+  - mix test
+  - file deps\argon2_elixir\priv\argon2_nif.dll
   #- name mix-dialyzer
