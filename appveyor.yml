@@ -26,6 +26,8 @@ install:
 build_script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
   - nmake mix-prepare
+  - file _build\test\lib\argon2_elixir\priv\argon2_nif.dll
+  - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
 
 before_test:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
@@ -34,7 +36,7 @@ before_test:
 test_script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
   - yarn run mdlint
-  - nmake mix-test
   - file _build\test\lib\argon2_elixir\priv\argon2_nif.dll
   - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
+  - nmake mix-test
   #- name mix-dialyzer
