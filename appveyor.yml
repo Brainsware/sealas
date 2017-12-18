@@ -19,7 +19,7 @@ init:
   - SET PGUSER=postgres
   - SET PGPASSWORD=Password12!
 install:
-  - cinst erlang --version 20.0
+  - cinst erlang --version 20.0 --force
   - cinst elixir
   - yarn
   - nmake mix-tools
