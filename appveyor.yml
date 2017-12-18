@@ -18,13 +18,16 @@ init:
   - SET PGPASSWORD=Password12!
 install:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - which erl
   - cinst erlang --version 20.0
   - cinst elixir
+  - which erl
   - yarn
   - nmake mix-tools
 
 build_script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+  - which erl
   - nmake mix-prepare
   - file deps\argon2_elixir\priv\argon2_nif.dll
   - file "c:\program files/erl9.0/erts-9.0/bin/erl.exe"
