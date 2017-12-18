@@ -13,7 +13,7 @@ init:
   - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - echo %PATH%
-  - SET PATH=%PATH:C:\Program Files\erl8.3\bin\erl\;=%
+  - SET PATH=%PATH:C:\Program Files\erl8.3\bin\erl;=%
   - SET PATH=C:\ProgramData\chocolatey\lib\Elixir\bin;%PATH%
   - SET PATH=C:\Program Files\PostgreSQL\9.6\bin\;%PATH%
   - SET PATH=C:\Program Files\erl9.0\bin\erl\;%PATH%
