@@ -9,6 +9,7 @@ mix-tools: $(secret_config)
 mix-prepare: $(secret_config)
 	mix deps.get
 	mix deps.compile
+	mix dialyzer --plt
 
 mix-test: $(secret_config)
 	mix test

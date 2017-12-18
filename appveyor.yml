@@ -19,16 +19,11 @@ init:
   - SET PGUSER=postgres
   - SET PGPASSWORD=Password12!
 install:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-  #- cinst erlang --version 20.0
   - cinst elixir
-  - which erl
   - yarn
   - nmake mix-tools
 
 build_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-  - which erl
   - nmake mix-prepare
 
 before_test:
@@ -36,8 +31,6 @@ before_test:
   - psql -c "create database sealas with owner sealas;" -U postgres
 
 test_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - yarn run mdlint
-  #- nmake mix-test
-  - mix test
-  #- name mix-dialyzer
+  - nmake mix-test
+  - nmake mix-dialyzer
