@@ -7,8 +7,9 @@ defmodule SealasSso.AuthControllerTest do
 
   @minimum_request_time 190_000
 
-  @create_attrs %{email: "some email", password: "some password", active: true}
-  @failed_login %{email: "some email", password: "wrong password"}
+  @create_attrs %{email: "some@email.com", password: "some password", active: true}
+  @valid_login  %{email: "some@email.com", password: "some password"}
+  @failed_login %{email: "some@email.com", password: "wrong password"}
 
   @create_tfa_attrs %{type: "yubikey", auth_key: "cccccccccccc"}
   @test_yubikey "cccccccccccccccccccccccccccccccfilnhluinrjhl"
@@ -45,17 +46,13 @@ defmodule SealasSso.AuthControllerTest do
     setup [:create_user]
 
     test "successful authentication as a user", %{conn: conn} do
-      conn = get conn, auth_path(conn, :index), @create_attrs
+      conn = get conn, auth_path(conn, :index), @valid_login
       assert %{"auth" => auth_token} = json_response(conn, 201)
 
-      key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
+      assert {:ok, token} = AuthToken.decrypt_token(auth_token)
 
-      jwk = %{"kty" => "oct", "k" => :base64url.encode(key)}
-
-      assert {true, token, _signature} = JOSE.JWT.verify(jwk, {%{alg: :jose_jws_alg_hmac}, auth_token})
-
-      {:ok, token_creatd_at} = DateTime.from_unix(token.fields["created_at"])
-      assert DateTime.diff(DateTime.utc_now(), token_creatd_at) >= 0
+      {:ok, token_created_at} = DateTime.from_unix(token["created_at"])
+      assert DateTime.diff(DateTime.utc_now(), token_created_at) >= 0
 
       conn = conn
       |> recycle()
@@ -81,7 +78,7 @@ defmodule SealasSso.AuthControllerTest do
     setup [:create_user_with_tfa]
 
     test "successful authentication with TFA", %{conn: conn} do
-      conn = get conn, auth_path(conn, :index), @create_attrs
+      conn = get conn, auth_path(conn, :index), @valid_login
       assert %{"tfa" => true, "code" => tfa_code} = json_response(conn, 201)
 
       conn = get conn, auth_path(conn, :index), %{code: tfa_code, auth_key: @test_yubikey}
@@ -94,7 +91,7 @@ defmodule SealasSso.AuthControllerTest do
     end
 
     test "failed authentication with TFA", %{conn: conn} do
-      conn = get conn, auth_path(conn, :index), @create_attrs
+      conn = get conn, auth_path(conn, :index), @valid_login
       assert %{"tfa" => true, "code" => tfa_code} = json_response(conn, 201)
 
       conn = get conn, auth_path(conn, :index), %{code: "wrong code!", auth_key: "wrong key!"}
