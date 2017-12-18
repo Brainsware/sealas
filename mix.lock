@@ -1,4 +1,4 @@
-%{"argon2_elixir": {:hex, :argon2_elixir, "1.2.9", "359502d89aa82c8a0b0b690e752a3120790528b5993299abbbcf0165fa1771bf", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
+%{"argon2_elixir": {:hex, :argon2_elixir, "1.2.14", "0fc4bfbc1b7e459954987d3d2f3836befd72d63f3a355e3978f5005dd6e80816", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
   "base64url": {:hex, :base64url, "0.0.1", "36a90125f5948e3afd7be97662a1504b934dd5dac78451ca6e9abf85a10286be", [], [], "hexpm"},
   "base_model": {:hex, :base_model, "0.2.0", "4e2b662cece7b0fe6490cf9edaed54104e510f96fbffaf3360a051d430ed25a0", [], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: false]}, {:shorter_maps, "~> 2.0", [hex: :shorter_maps, repo: "hexpm", optional: false]}], "hexpm"},
   "certifi": {:hex, :certifi, "2.0.0", "a0c0e475107135f76b8c1d5bc7efb33cd3815cb3cf3dea7aefdd174dabead064", [], [], "hexpm"},

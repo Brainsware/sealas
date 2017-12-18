@@ -73,7 +73,7 @@ defmodule SealasSso.AuthControllerTest do
     test "get 401 for protected route", %{conn: conn} do
       conn = conn |> get(user_path(conn, :index))
 
-      assert json_response(conn, 401) == %{"error" => "auth fail"}
+      assert json_response(conn, 401) == %{"error" => "auth_fail"}
     end
   end
 
