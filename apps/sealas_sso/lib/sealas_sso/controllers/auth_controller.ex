@@ -35,7 +35,7 @@ defmodule SealasSso.AuthController do
       user && user.active && EctoHashedPassword.checkpw(password, user.password) ->
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: generate_token(user)})
+        |> render("auth.json", %{auth: AuthToken.generate_token(user)})
 
       # User exists, needs activation
       user && !user.active ->
@@ -70,7 +70,7 @@ defmodule SealasSso.AuthController do
 
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: generate_token(user)})
+        |> render("auth.json", %{auth: AuthToken.generate_token(user)})
       true ->
         conn
         |> put_status(:unauthorized) # http 401
@@ -89,22 +89,5 @@ defmodule SealasSso.AuthController do
       true ->
         {:error}
     end
-  end
-
-  @doc """
-  Generates an encrypted auth token for the login.
-  """
-  @spec generate_token(%User{}) :: String.t
-  defp generate_token(user) do
-    key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
-
-    jwk = %{"kty" => "oct", "k" => :base64url.encode(key)}
-    jws = %{"alg" => "HS256"}
-
-    token_content = %{created_at: DateTime.to_unix(DateTime.utc_now()), id: user.id}
-
-    {%{alg: :jose_jws_alg_hmac}, token} = JOSE.JWS.compact JOSE.JWT.sign(jwk, jws, token_content)
-
-    token
   end
 end
