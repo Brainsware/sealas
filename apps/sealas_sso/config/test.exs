@@ -19,7 +19,7 @@ config :argon2_elixir,
   t_cost: 2,
   m_cost: 12
 
-config :sealas_sso, AuthToken,
+config :authtoken,
   token_key: <<9, 220, 102, 230, 103, 242, 149, 254, 4, 33, 137, 240, 23, 90, 99, 250>>
 
 config :sealas_sso, SealasSso.Yubikey,

@@ -33,9 +33,11 @@ defmodule SealasSso.AuthController do
 
       # Valid Login (no TFA)
       user && user.active && EctoHashedPassword.checkpw(password, user.password) ->
+        token_content = %{id: user.id}
+
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: AuthToken.generate_token(user)})
+        |> render("auth.json", %{auth: AuthToken.generate_token(token_content)})
 
       # User exists, needs activation
       user && !user.active ->
@@ -68,9 +70,11 @@ defmodule SealasSso.AuthController do
       {:ok}        == tfa_match(user, usertfa)   ->
         User.update(user, recovery_code: nil)
 
+        token_content = %{id: user.id}
+
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: AuthToken.generate_token(user)})
+        |> render("auth.json", %{auth: AuthToken.generate_token(token_content)})
       true ->
         conn
         |> put_status(:unauthorized) # http 401

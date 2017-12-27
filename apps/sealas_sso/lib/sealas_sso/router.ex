@@ -2,7 +2,7 @@ defmodule SealasSso.Router do
   use SealasSso, :router
   alias Plug.Conn
 
-  import AuthToken
+  import AuthToken.Plug
 
   @doc "Minimum request time in µs"
   @minimum_request_time 200_000
@@ -20,7 +20,7 @@ defmodule SealasSso.Router do
   Pipeline for restricted routes, checks access token
   """
   pipeline :auth do
-    plug :check_token
+    plug :verify_token
   end
 
   scope "/", SealasSso do

@@ -49,11 +49,6 @@ defmodule SealasSso.AuthControllerTest do
       conn = get conn, auth_path(conn, :index), @valid_login
       assert %{"auth" => auth_token} = json_response(conn, 201)
 
-      assert {:ok, token} = AuthToken.decrypt_token(auth_token)
-
-      {:ok, token_created_at} = DateTime.from_unix(token["created_at"])
-      assert DateTime.diff(DateTime.utc_now(), token_created_at) >= 0
-
       conn = conn
       |> recycle()
       |> put_req_header("authorization", "bearer: " <> auth_token)

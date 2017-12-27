@@ -47,7 +47,6 @@ defmodule SealasSso.Mixfile do
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2.14"},
       {:yubico, "~> 0.1"},
-      {:guardian, "~> 1.0-beta"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
@@ -55,6 +54,8 @@ defmodule SealasSso.Mixfile do
       {:base_model, "~> 0.2"},
       {:swoosh, "~> 0.11"},
       {:phoenix_swoosh, "~> 0.2"},
+      {:jose, "~> 1.8"},
+      {:authtoken, "~> 0.1"},
     ]
   end
 
