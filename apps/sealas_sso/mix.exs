@@ -53,7 +53,7 @@ defmodule SealasSso.Mixfile do
       {:swoosh, "~> 0.11"},
       {:phoenix_swoosh, "~> 0.2"},
       {:jose, "~> 1.8"},
-      {:authtoken, "~> 0.1"},
+      {:authtoken, "~> 0.2"},
 
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
