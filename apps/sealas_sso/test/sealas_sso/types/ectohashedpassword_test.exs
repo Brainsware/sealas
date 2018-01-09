@@ -13,7 +13,7 @@ defmodule SealasSso.EctoHashedPasswordTest do
       assert {:ok, hash} = EctoHashedPassword.cast("test_password")
 
       assert EctoHashedPassword.checkpw("test_password", hash)
-      assert !EctoHashedPassword.checkpw("wrong_password", hash)
+      refute EctoHashedPassword.checkpw("wrong_password", hash)
     end
 
     test "verify argon2 hash", do: assert EctoHashedPassword.checkpw("test_password", @argon2_hash)
