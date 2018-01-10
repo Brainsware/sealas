@@ -1,10 +1,11 @@
 # Sealas - Zero Knowledge Online Accounting Software For Freelancers
 
-Sealas is Open Source. Open Source in all matters technical: the source code is available on Github, and everybody's welcome to support us with pull requests.
+Follow the journey of our development of a secure client-side encrypted accounting software.
 
-... and Open Source in spirit: we write about the whole development of Sealas and the hows and whys behind our technical, design and business decisions.
+Learn with us the ins and outs of working on a project with the focus on security and usability.
+We write about the challenges, hows and whys behind our technical, design and business decisions.
 
-Check out the [website and blog repository](https://github.com/Brainsware/sealas-site), and follow our development of Sealas here: [https://sealas.at/blog](https://sealas.at/blog)
+Check out the blog here: [https://sealas.at/blog](https://sealas.at/blog)
 
 ## Build Status
 
