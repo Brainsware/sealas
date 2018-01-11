@@ -100,8 +100,8 @@ defmodule SealasSso.AuthControllerTest do
   describe "unvalidated user" do
     test "fail to authenticate with unvalidated user", %{conn: conn} do
       {:ok, user} = %User{}
-        |> User.create_test_changeset(%{email: "email", activation_code: "code", active: false})
-        |> Repo.insert()
+      |> User.create_test_changeset(%{email: "email", activation_code: "code", active: false})
+      |> Repo.insert()
 
       conn = get conn, auth_path(conn, :index), %{email: "email", password: "password"}
       assert %{"error" => "retry_validation", "activation_code" => _code} = json_response(conn, 400)
