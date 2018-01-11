@@ -12,7 +12,7 @@ defmodule SealasSso.Repo.Migrations.AddAccount do
       add :installed,     :boolean, default: false
 
       # store all company contact information
-      add :company_info   :text
+      add :company_info,  :text
 
       timestamps()
     end
