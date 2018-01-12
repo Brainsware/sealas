@@ -9,10 +9,39 @@ defmodule SealasSso.RegistrationController do
 
   action_fallback SealasSso.FallbackController
 
+  @spec show(Plug.Conn.T, %{id: String.t}) :: Plug.Conn.t
+  def show(conn, %{"id" => code}) do
+    user = User.first(activation_code: code)
+
+    cond do
+      user && !user.active ->
+        conn
+        |> render("code.json", email: user.email)
+      true ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", error: "wrong_code")
+    end
+  end
+
+  @spec create(Plug.Conn.T, %{code: String.t, user: %{}}) :: Plug.Conn.t
+  def create(conn, %{"code" => code, "user" => user_params}) do
+    user = User.first(activation_code: code)
+
+    cond do
+      !user || user.active ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", error: "wrong_code")
+      true ->
+        conn
+    end
+  end
+
   @doc """
   First step to registration, check email, create new user with it.
 
-  Also sends out e-mail with verification code in later version.
+  TODO: Also sends out e-mail with verification code in later version.
   """
   @spec create(Plug.Conn.t, %{user: %{}}) :: Plug.Conn.t
   def create(conn, %{"user" => user_params}) do
