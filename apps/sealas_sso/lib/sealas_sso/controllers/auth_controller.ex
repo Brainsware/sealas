@@ -85,6 +85,22 @@ defmodule SealasSso.AuthController do
   end
 
   @doc """
+  Refresh stale token
+  """
+  def index(conn, %{"token" => auth_token}) do
+    case AuthToken.refresh_token(auth_token) do
+      {:ok, token} ->
+        conn
+        |> put_status(:created)
+        |> render("auth.json", %{auth: token})
+      _ ->
+        conn
+        |> put_status(:unauthorized)
+        |> render("error.json")
+    end
+  end
+
+  @doc """
   Checks for valid User and UserTFA entries and checks for a valid TFA key.
   """
   @spec tfa_match(%User{}, %UserTfa{}) :: {:ok} | {:error}

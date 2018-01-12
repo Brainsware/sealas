@@ -67,6 +67,49 @@ defmodule SealasSso.AuthControllerTest do
 
       assert json_response(conn, 401) == %{"error" => "auth_fail"}
     end
+
+    test "deny request with timedout token", %{conn: conn} do
+      conn = get conn, auth_path(conn, :index), @valid_login
+      assert %{"auth" => auth_token} = json_response(conn, 201)
+
+      {:ok, token} = AuthToken.decrypt_token(auth_token)
+      {:ok, auth_token} = AuthToken.generate_token %{token | "ct" => DateTime.utc_now() |> DateTime.to_unix() |> Kernel.-(864000)}
+
+      conn = conn
+      |> recycle()
+      |> put_req_header("authorization", "bearer: " <> auth_token)
+      |> get(user_path(conn, :index))
+
+      assert json_response(conn, 401) == %{"error" => "timeout"}
+    end
+
+    test "refresh stale token", %{conn: conn} do
+      conn = get conn, auth_path(conn, :index), @valid_login
+      assert %{"auth" => auth_token} = json_response(conn, 201)
+
+      # Fake stale token
+      {:ok, token} = AuthToken.decrypt_token(auth_token)
+      {:ok, auth_token} = AuthToken.generate_token %{token | "rt" => DateTime.utc_now() |> DateTime.to_unix() |> Kernel.-(3600)}
+
+      conn = conn
+      |> recycle()
+      |> put_req_header("authorization", "bearer: " <> auth_token)
+      |> get(user_path(conn, :index))
+
+      assert json_response(conn, 401) == %{"error" => "needs_refresh"}
+
+      # Refresh token
+      conn = get conn, auth_path(conn, :index), %{token: auth_token}
+      assert %{"auth" => auth_token} = json_response(conn, 201)
+
+      # And retry request
+      conn = conn
+      |> recycle()
+      |> put_req_header("authorization", "bearer: " <> auth_token)
+      |> get(user_path(conn, :index))
+
+      assert json_response(conn, 200)
+    end
   end
 
   describe "login with TFA" do
