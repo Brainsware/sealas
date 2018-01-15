@@ -84,22 +84,19 @@ defmodule SealasSso.AuthControllerTest do
     end
 
     test "refresh stale token", %{conn: conn} do
-      conn = get conn, auth_path(conn, :index), @valid_login
-      assert %{"auth" => auth_token} = json_response(conn, 201)
+      user = User.first(email: @valid_login.email)
 
-      # Fake stale token
-      {:ok, token} = AuthToken.decrypt_token(auth_token)
-      {:ok, auth_token} = AuthToken.generate_token %{token | "rt" => DateTime.utc_now() |> DateTime.to_unix() |> Kernel.-(3600)}
+      stale_token = create_stale_token(user)
 
       conn = conn
       |> recycle()
-      |> put_req_header("authorization", "bearer: " <> auth_token)
+      |> put_req_header("authorization", "bearer: " <> stale_token)
       |> get(user_path(conn, :index))
 
       assert json_response(conn, 401) == %{"error" => "needs_refresh"}
 
       # Refresh token
-      conn = get conn, auth_path(conn, :index), %{token: auth_token}
+      conn = get conn, auth_path(conn, :index), %{token: stale_token}
       assert %{"auth" => auth_token} = json_response(conn, 201)
 
       # And retry request
@@ -109,6 +106,24 @@ defmodule SealasSso.AuthControllerTest do
       |> get(user_path(conn, :index))
 
       assert json_response(conn, 200)
+    end
+
+    test "refuse refreshing of token if user has been deleted or deactivated", %{conn: conn} do
+      user = User.first(email: @valid_login.email)
+
+      stale_token = create_stale_token(user)
+
+      User.update(user, active: false)
+
+      # Refresh token
+      conn = get conn, auth_path(conn, :index), %{token: stale_token}
+      assert json_response(conn, 401)
+
+      User.delete(user)
+
+      # Refresh token
+      conn = get conn, auth_path(conn, :index), %{token: stale_token}
+      assert json_response(conn, 401)
     end
   end
 
@@ -159,5 +174,12 @@ defmodule SealasSso.AuthControllerTest do
   defp create_user_with_tfa(_) do
     user = fixture(:user, :with_tfa)
     {:ok, user: user}
+  end
+
+  defp create_stale_token(user) do
+    content = %{"id" => user.id, "rt" => DateTime.utc_now() |> DateTime.to_unix() |> Kernel.-(3600)}
+    {:ok, auth_token} = AuthToken.generate_token(content)
+
+    auth_token
   end
 end
