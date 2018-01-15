@@ -88,12 +88,18 @@ defmodule SealasSso.AuthController do
   Refresh stale token
   """
   def index(conn, %{"token" => auth_token}) do
-    case AuthToken.refresh_token(auth_token) do
-      {:ok, token} ->
+    {:ok, token} = AuthToken.decrypt_token(auth_token)
+
+    user = User.first(id: token["id"])
+
+    {:ok, token} = AuthToken.refresh_token(auth_token)
+
+    cond do
+      user && user.active && token ->
         conn
         |> put_status(:created)
         |> render("auth.json", %{auth: token})
-      _ ->
+      true ->
         conn
         |> put_status(:unauthorized)
         |> render("error.json")
