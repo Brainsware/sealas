@@ -20,6 +20,22 @@ AppVeyor: [![AppVyor Build status](https://ci.appveyor.com/api/projects/status/v
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/Brainsware/sealas.svg)](https://beta.hexfaktor.org/github/Brainsware/sealas)
 [![Inline docs](https://inch-ci.org/github/Brainsware/sealas.svg?branch=master&style=flat)](https://inch-ci.org/github/Brainsware/sealas)
 
+## Structure
+
+Sealas is built as an umbrella app (explained in more detail here: [https://sealas.at/blog/2017-08/setting-up-a-phoenix-umbrella-app/](https://sealas.at/blog/2017-08/setting-up-a-phoenix-umbrella-app/))
+
+### `apps/sealas_sso`
+
+The SSO or authentication app handles all interaction with the user database. Registration, authorization, registration and access recovery are done here.
+
+### `apps/sealas_api`
+
+All interaction with the permanent datastore goes through this part, as well as some access to authentication mechanisms.
+
+### `apps/sealas_web`
+
+The main part of the the actual client and the one that relies the least on the backend, as it's mostly static content. All of the javascript base goes here, along with the generators, along with the generators and CSS files.
+
 ## Development
 
 To start dev server:
