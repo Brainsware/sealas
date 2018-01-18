@@ -50,8 +50,9 @@ defmodule SealasSso.Mixfile do
       {:ecto, "~> 2.1"},
       {:inch_ex, only: :docs},
       {:base_model, "~> 0.2"},
-      {:swoosh, "~> 0.11"},
+      {:swoosh, "~> 0.13"},
       {:phoenix_swoosh, "~> 0.2"},
+      {:gen_smtp, "~> 0.12"},
       {:jose, "~> 1.8"},
       {:authtoken, "~> 0.2"},
 
