@@ -25,4 +25,7 @@ config :authtoken,
 config :sealas_sso, SealasSso.Yubikey,
   skip_server: true
 
+config :sealas_sso, SealasSso.Mailer,
+  adapter: Swoosh.Adapters.Test
+
 import_config "config.secret.exs"
