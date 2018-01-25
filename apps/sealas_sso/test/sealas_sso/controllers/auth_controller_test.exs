@@ -14,15 +14,15 @@ defmodule SealasSso.AuthControllerTest do
   @create_tfa_attrs %{type: "yubikey", auth_key: "cccccccccccc"}
   @test_yubikey "cccccccccccccccccccccccccccccccfilnhluinrjhl"
 
-  def fixture(:user) do
+  def fixture() do
     {:ok, user} = %User{}
       |> User.create_test_changeset(@create_attrs)
       |> Repo.insert()
     user
   end
 
-  def fixture(:user, :with_tfa) do
-    user = fixture(:user)
+  def fixture(:with_tfa) do
+    user = fixture()
     {:ok, _tfa}  = UserTfa.create(Map.put(@create_tfa_attrs, :user, user))
     user
   end
@@ -63,7 +63,7 @@ defmodule SealasSso.AuthControllerTest do
     end
 
     test "get 401 for protected route", %{conn: conn} do
-      conn = conn |> get(user_path(conn, :index))
+      conn = get conn, user_path(conn, :index)
 
       assert json_response(conn, 401) == %{"error" => "auth_fail"}
     end
@@ -167,12 +167,12 @@ defmodule SealasSso.AuthControllerTest do
   end
 
   defp create_user(_) do
-    user = fixture(:user)
+    user = fixture()
     {:ok, user: user}
   end
 
   defp create_user_with_tfa(_) do
-    user = fixture(:user, :with_tfa)
+    user = fixture(:with_tfa)
     {:ok, user: user}
   end
 
