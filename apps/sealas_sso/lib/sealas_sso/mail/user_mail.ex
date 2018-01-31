@@ -14,11 +14,12 @@ defmodule SealasSso.UserMail do
     |> attachment(twitter)
     |> attachment(facebook)
     |> attachment(github)
+    |> assign(:app_uri, Application.get_env(:sealas_web, SealasWeb.Endpoint)[:app_uri])
   end
 
   def verification(user) do
     prepare(user)
     |> subject("Is this reality?")
-    |> render_body(:verification, user)
+    |> render_body(:verification, user: user)
   end
 end

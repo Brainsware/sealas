@@ -14,7 +14,8 @@ config :sealas_web, SealasWeb.Endpoint,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]],
   cdn_uri:    "cdn.sealas.at",
-  static_uri: "static.sealas.local"
+  static_uri: "static.sealas.local",
+  app_uri:    "app.sealas.local"
 
 
 # ## SSL Support
