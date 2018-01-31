@@ -41,7 +41,7 @@ defmodule SealasSso.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.14"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2.14"},
