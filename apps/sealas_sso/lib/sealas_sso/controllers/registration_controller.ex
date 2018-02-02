@@ -58,6 +58,9 @@ defmodule SealasSso.RegistrationController do
 
     case User.create(user_params) do
       {:ok, %User{} = user} ->
+        SealasSso.UserMail.verification(%{email: user.email, activation_code: code_hash})
+        |> SealasSso.Mailer.deliver
+
         conn
         |> put_status(:created)
         |> render("registration.json", activation_code: code_hash)
@@ -65,7 +68,6 @@ defmodule SealasSso.RegistrationController do
         user = User.first(email: user_params["email"])
 
         cond do
-          # somebody is trying to register with an email that's already registered
           user && !user.active ->
             code_hash = :crypto.hash(:sha256, user.activation_code) |> Base.encode16 |> String.downcase
 

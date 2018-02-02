@@ -1,6 +1,8 @@
 defmodule SealasSso.RegistrationControllerTest do
   use SealasSso.ConnCase
 
+  import Swoosh.TestAssertions
+
   alias SealasSso.Repo
   alias SealasSso.Accounts.User
 
@@ -8,13 +10,15 @@ defmodule SealasSso.RegistrationControllerTest do
 
   @registration_attrs %{email: "some@email.com", locale: "en"}
 
-  @verify_create_attrs %{email: "some@email.com", locale: "en", activation_code: "12344312asdfgZXCV"}
+  @verify_create_attrs %{email: "some@email.com", activation_code: "12344312asdfgZXCV"}
   @verification_attrs %{password: "hashed password yall", password_hint: "so secret, mhhhh", appkey: "very encrypted key to your application", salt: "salty boi"}
 
   describe "registration" do
     test "register as a new user", %{conn: conn} do
       conn = post conn, registration_path(conn, :create), user: @registration_attrs
-      assert %{"activation_code" => _activation_code} = json_response(conn, 201)
+      assert %{"activation_code" => activation_code} = json_response(conn, 201)
+
+      assert_email_sent SealasSso.UserMail.verification(%{email: @registration_attrs.email, activation_code: activation_code})
     end
 
     test "register with an existing email", %{conn: conn} do
