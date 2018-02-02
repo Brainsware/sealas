@@ -28,7 +28,14 @@ config :sealas_sso, :generators,
   context_app: false
 
 config :sealas_sso, SealasSso.Mailer,
-  adapter: Swoosh.Adapters.SMTP
+  adapter: Swoosh.Adapters.SMTP,
+  from: {"Sealas", "support@sealas.at"},
+  embedded_images: %{
+    "logo" =>     "assets/sealas-logo-white-yellow.png",
+    "twitter" =>  "assets/mail-twitter.png",
+    "facebook" => "assets/mail-facebook.png",
+    "github" =>   "assets/mail-github.png"
+  }
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
