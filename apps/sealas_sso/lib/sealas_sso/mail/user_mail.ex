@@ -8,8 +8,9 @@ defmodule SealasSso.UserMail do
     |> assign(:app_uri,    Application.get_env(:sealas_web, SealasWeb.Endpoint)[:app_uri])
     |> assign(:static_uri, Application.get_env(:sealas_web, SealasWeb.Endpoint)[:static_uri])
 
-    mail = Enum.map(Application.get_env(:sealas_sso, SealasSso.Mailer)[:embedded_images],
-      fn {k, v} -> Swoosh.Attachment.new(v, filename: k, content_type: "image/png", type: :inline) end)
+    embedded_images = Application.get_env(:sealas_sso, SealasSso.Mailer)[:embedded_images]
+
+    mail = Enum.map(embedded_images, fn {k, v} -> Swoosh.Attachment.new(v, filename: k, content_type: "image/png", type: :inline) end)
     |> images(mail)
 
     mail

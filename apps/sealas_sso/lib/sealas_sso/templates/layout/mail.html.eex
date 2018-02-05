@@ -91,7 +91,7 @@ html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
                     </td><td width="32" align="right" style="line-height: 24px;">
                       <a href="https://github.com/Brainsware/sealas" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                       <font face="Arial, Helvetica, sans-serif" size="2" color="#596167">
-                      <img src="cid:github" width="24" height="24" alt="Dribbble" border="0" style="display: block;" /></font></a>
+                      <img src="cid:github" width="24" height="24" alt="Github" border="0" style="display: block;" /></font></a>
                     </td><td width="32" align="right" style="line-height: 24px;">
 											<a href="https://twitter.com/sealasapp" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
 											<font face="Arial, Helvetica, sans-serif" size="2" color="#596167">
@@ -99,7 +99,7 @@ html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
 										</td><td width="32" align="right" style="line-height: 24px;">
 											<a href="https://facebook.com/sealasapp" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
 											<font face="Arial, Helvetica, sans-serif" size="2" color="#596167">
-											<img src="cid:facebook" width="24" height="24" alt="Dribbble" border="0" style="display: block;" /></font></a>
+											<img src="cid:facebook" width="24" height="24" alt="Facebook" border="0" style="display: block;" /></font></a>
 										</td></tr>
 									</table>
 									</div>
