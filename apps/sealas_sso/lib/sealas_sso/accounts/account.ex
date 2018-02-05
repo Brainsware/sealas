@@ -22,7 +22,7 @@ defmodule SealasSso.Accounts.Account do
   @spec create_changeset(map) :: %Ecto.Changeset{}
   def create_changeset(params) do
     %__MODULE__{}
-    |> cast(params, [:appkey, :slug])
-    |> validate_required(:appkey, :slug)
+    |> cast(params, [:appkey])
+    |> validate_required(:appkey)
   end
 end

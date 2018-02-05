@@ -51,6 +51,12 @@ defmodule SealasSso.Accounts.User do
     |> unique_constraint(:email)
   end
 
+  @spec verify_changeset(map) :: %Ecto.Changeset{}
+  def verify_changeset(params) do
+    %__MODULE__{}
+    |> cast(params, [:password, :password_hint, :salt])
+  end
+
   @doc """
   Just for testing
 

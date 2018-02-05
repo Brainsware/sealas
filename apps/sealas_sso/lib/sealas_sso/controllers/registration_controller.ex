@@ -6,6 +6,7 @@ defmodule SealasSso.RegistrationController do
   use SealasSso, :controller
 
   alias SealasSso.Accounts.User
+  alias SealasSso.Accounts.Account
 
   action_fallback SealasSso.FallbackController
 
@@ -40,7 +41,17 @@ defmodule SealasSso.RegistrationController do
         |> put_status(:bad_request)
         |> render("error.json", error: "wrong_code")
       true ->
-        conn
+        with {:ok, %User{} = user} <- User.update(user, password: user_params["password"], password_hint: user_params["password_hint"], salt: user_params["salt"], active: true, activation_code: nil),
+          {:ok, %Account{} = account} <- Account.create(user: user, appkey: user_params["appkey"])
+        do
+          conn
+          |> put_status(:created)
+          |> render("verify.json")
+        else
+          err -> conn
+          |> put_status(:bad_request)
+          |> render("error.json", error: err)
+        end
     end
   end
 

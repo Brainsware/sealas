@@ -16,4 +16,8 @@ defmodule SealasSso.RegistrationView do
   def render("registration.json", %{activation_code: activation_code}) do
     %{activation_code: activation_code}
   end
+
+  def render("verify.json", _params) do
+    %{}
+  end
 end
