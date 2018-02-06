@@ -13,7 +13,7 @@ defmodule SealasSso.RegistrationController do
   @doc """
   Check if user with provided activation code exists, and if user is still not verified
   """
-  @spec show(Plug.Conn.T, %{id: String.t}) :: Plug.Conn.t
+  @spec show(Plug.Conn.t, %{id: String.t}) :: Plug.Conn.t
   def show(conn, %{"id" => code}) do
     user = User.first(activation_code: code)
 
@@ -31,7 +31,7 @@ defmodule SealasSso.RegistrationController do
   @doc """
   Verify user with provided code
   """
-  @spec create(Plug.Conn.T, %{code: String.t, user: %{}}) :: Plug.Conn.t
+  @spec create(Plug.Conn.t, %{code: String.t, user: %{}}) :: Plug.Conn.t
   def create(conn, %{"code" => code, "user" => user_params}) do
     user = User.first(activation_code: code)
 
