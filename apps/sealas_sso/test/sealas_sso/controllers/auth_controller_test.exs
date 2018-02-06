@@ -125,6 +125,14 @@ defmodule SealasSso.AuthControllerTest do
       conn = get conn, auth_path(conn, :index), %{token: stale_token}
       assert json_response(conn, 401)
     end
+
+    test "refuse refreshing of invalid tokens", %{conn: conn} do
+      conn = get conn, auth_path(conn, :index), %{token: nil}
+      assert json_response(conn, 401)
+
+      conn = get conn, auth_path(conn, :index), %{token: "INVALID TOOOOOKEN"}
+      assert json_response(conn, 401)
+    end
   end
 
   describe "login with TFA" do
