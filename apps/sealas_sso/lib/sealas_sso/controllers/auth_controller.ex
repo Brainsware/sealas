@@ -87,6 +87,7 @@ defmodule SealasSso.AuthController do
   @doc """
   Refresh stale token
   """
+  @dialyzer {:nowarn_function, index: 2}
   @spec index(Plug.Conn.t, %{token: String.t}) :: Plug.Conn.t
   def index(conn, %{"token" => auth_token}) do
     with {:ok, token} <- AuthToken.decrypt_token(auth_token),
@@ -104,7 +105,7 @@ defmodule SealasSso.AuthController do
           |> render("error.json")
       end
     else
-      err ->
+      _ ->
       conn
       |> put_status(:unauthorized)
       |> render("error.json")
