@@ -5,7 +5,7 @@ defmodule SealasSso.AuthControllerTest do
   alias SealasSso.Accounts.User
   alias SealasSso.Accounts.UserTfa
 
-  @minimum_request_time 190_000
+  @minimum_request_time 200_000
 
   @create_attrs %{email: "some@email.com", password: "some password", active: true}
   @valid_login  %{email: "some@email.com", password: "some password"}
