@@ -10,17 +10,22 @@
 msgid ""
 msgstr ""
 
-#, elixir-format
 #: lib/sealas_sso/templates/mail/verification.html.eex:3
+#: lib/sealas_sso/templates/mail/verification.text.eex:5
 msgid "verification_code"
 msgstr ""
 
-#, elixir-format
 #: lib/sealas_sso/templates/mail/verification.html.eex:1
+#: lib/sealas_sso/templates/mail/verification.text.eex:1
 msgid "verification_one_more_step"
 msgstr ""
 
-#, elixir-format
 #: lib/sealas_sso/templates/mail/verification.html.eex:5
+#: lib/sealas_sso/templates/mail/verification.text.eex:9
 msgid "verification_verify"
+msgstr ""
+
+#, elixir-format
+#: lib/sealas_sso/mail/user_mail.ex:25
+msgid "verification_subject"
 msgstr ""

@@ -1,5 +1,6 @@
 defmodule SealasSso.UserMail do
   use Phoenix.Swoosh, view: SealasSso.MailView, layout: {SealasSso.LayoutView, :mail}
+  import SealasSso.Gettext
 
   defp prepare(user) do
     mail = new()
@@ -21,7 +22,7 @@ defmodule SealasSso.UserMail do
 
   def verification(user) do
     prepare(user)
-    |> subject("Is this reality?")
+    |> subject(dgettext "mail", "verification_subject")
     |> render_body(:verification, user: user)
   end
 end
