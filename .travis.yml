@@ -17,6 +17,7 @@ cache:
     - _build
     - deps
     - _mix_ci
+    - ~/.mix
 before_script:
   - psql -c "create role sealas with login password 'sealas';" -U postgres
   - psql -c 'create database sealas with owner sealas;' -U postgres
