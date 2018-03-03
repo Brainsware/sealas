@@ -5,6 +5,7 @@ defmodule SealasSso.RegistrationControllerTest do
 
   alias SealasSso.Repo
   alias SealasSso.Accounts.User
+  alias SealasSso.UserMail
 
   @create_attrs %{email: "some@email.com", password: "some password", active: true}
 
@@ -18,7 +19,7 @@ defmodule SealasSso.RegistrationControllerTest do
       conn = post conn, registration_path(conn, :create), user: @registration_attrs
       assert %{"activation_code" => activation_code} = json_response(conn, 201)
 
-      assert_email_sent SealasSso.UserMail.verification(%{email: @registration_attrs.email, activation_code: activation_code})
+      assert_email_sent UserMail.verification(%{email: @registration_attrs.email, activation_code: activation_code})
     end
 
     test "register with an existing email", %{conn: conn} do
