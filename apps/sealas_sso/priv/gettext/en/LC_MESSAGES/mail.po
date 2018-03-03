@@ -26,7 +26,7 @@ msgstr ""
 #: lib/sealas_sso/templates/mail/verification.html.eex:3
 #: lib/sealas_sso/templates/mail/verification.text.eex:5
 msgid "verification_code"
-msgstr "Verify your Sealas account"
+msgstr "Or use this to go directly to the verification:"
 
 #: lib/sealas_sso/templates/mail/verification.html.eex:1
 #: lib/sealas_sso/templates/mail/verification.text.eex:1
@@ -43,7 +43,5 @@ msgstr ""
 "using Sealas."
 
 #: lib/sealas_sso/mail/user_mail.ex:25
-#, fuzzy
-#| msgid "verification_code"
 msgid "verification_subject"
-msgstr "Or use this to go directly to the verification:"
+msgstr "Verify your Sealas account"

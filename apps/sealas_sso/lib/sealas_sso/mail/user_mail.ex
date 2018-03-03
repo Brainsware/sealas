@@ -2,6 +2,7 @@ defmodule SealasSso.UserMail do
   use Phoenix.Swoosh, view: SealasSso.MailView, layout: {SealasSso.LayoutView, :mail}
   import SealasSso.Gettext
 
+  @spec prepare(map) :: Swoosh.Email.t
   defp prepare(user) do
     mail = new()
     |> to(user.email)
@@ -20,6 +21,7 @@ defmodule SealasSso.UserMail do
   defp images([head | tail], mail), do: images(tail, attachment(mail, head))
   defp images([], mail), do: mail
 
+  @spec verification(map) :: Swoosh.Email.t
   def verification(user) do
     prepare(user)
     |> subject(dgettext "mail", "verification_subject")
