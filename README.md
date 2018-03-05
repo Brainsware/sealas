@@ -5,7 +5,7 @@ Follow the journey of our development of a secure client-side encrypted accounti
 Learn with us the ins and outs of working on a project with the focus on security and usability.
 We write about the challenges, hows and whys behind our technical, design and business decisions.
 
-Check out the blog here: [https://sealas.at/blog](https://sealas.at/blog)
+You can read our articles here: [https://sealas.at/blog](https://sealas.at/blog)
 
 ## Build Status
 
@@ -26,7 +26,7 @@ Sealas is built as an umbrella app (explained in more detail here: [https://seal
 
 ### `apps/sealas_sso`
 
-The SSO or authentication app handles all interaction with the user database. Registration, authorization, registration and access recovery are done here.
+The SSO or authentication app handles all interaction with the user database. Registration, authorization and access recovery are done here.
 
 ### `apps/sealas_api`
 
@@ -34,7 +34,7 @@ All interaction with the permanent datastore goes through this part, as well as 
 
 ### `apps/sealas_web`
 
-The main part of the the actual client and the one that relies the least on the backend, as it's mostly static content. All of the javascript base goes here, along with the generators, along with the generators and CSS files.
+The main part of the client and the one that relies the least on the backend, as it's mostly static content. All of the javascript base lies here, along with the generators and CSS files.
 
 ## Development
 
