@@ -33,9 +33,12 @@ defmodule SealasSso.AuthController do
 
       # Valid Login (no TFA)
       user && user.active && EctoHashedPassword.checkpw(password, user.password) ->
+        token_content = %{id: user.id}
+        {:ok, token}  = AuthToken.generate_token(token_content)
+
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: generate_token(user)})
+        |> render("auth.json", %{auth: token})
 
       # User exists, needs activation
       user && !user.active ->
@@ -68,13 +71,44 @@ defmodule SealasSso.AuthController do
       {:ok}        == tfa_match(user, usertfa)   ->
         User.update(user, recovery_code: nil)
 
+        token_content = %{id: user.id}
+        {:ok, token}  = AuthToken.generate_token(token_content)
+
         conn
         |> put_status(:created) # http 201
-        |> render("auth.json", %{auth: generate_token(user)})
+        |> render("auth.json", %{auth: token})
       true ->
         conn
         |> put_status(:unauthorized) # http 401
         |> render("error.json")
+    end
+  end
+
+  @doc """
+  Refresh stale token
+  """
+  @dialyzer {:nowarn_function, index: 2}
+  @spec index(Plug.Conn.t, %{token: String.t}) :: Plug.Conn.t
+  def index(conn, %{"token" => auth_token}) do
+    with {:ok, token} <- AuthToken.decrypt_token(auth_token),
+         user         <- User.first(id: token["id"]),
+         {:ok, token} <- AuthToken.refresh_token(auth_token)
+    do
+      cond do
+        user && user.active && token ->
+          conn
+          |> put_status(:created)
+          |> render("auth.json", %{auth: token})
+        true ->
+          conn
+          |> put_status(:unauthorized)
+          |> render("error.json")
+      end
+    else
+      _ ->
+      conn
+      |> put_status(:unauthorized)
+      |> render("error.json")
     end
   end
 
@@ -89,22 +123,5 @@ defmodule SealasSso.AuthController do
       true ->
         {:error}
     end
-  end
-
-  @doc """
-  Generates an encrypted auth token for the login.
-  """
-  @spec generate_token(%User{}) :: String.t
-  defp generate_token(user) do
-    key = Application.get_env(:sealas_sso, SealasSso.Endpoint)[:token_key]
-
-    jwk = %{"kty" => "oct", "k" => :base64url.encode(key)}
-    jws = %{"alg" => "HS256"}
-
-    token_content = %{created_at: DateTime.to_unix(DateTime.utc_now()), id: user.id}
-
-    {%{alg: :jose_jws_alg_hmac}, token} = JOSE.JWS.compact JOSE.JWT.sign(jwk, jws, token_content)
-
-    token
   end
 end

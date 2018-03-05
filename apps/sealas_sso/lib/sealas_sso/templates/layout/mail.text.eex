@@ -1,0 +1,7 @@
+<%= render @view_module, @view_template, assigns %>
+
+---
+
+Sealas - Secure Easy And Lovely Accounting Software
+
+https://sealas.at/

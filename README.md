@@ -1,10 +1,11 @@
 # Sealas - Zero Knowledge Online Accounting Software For Freelancers
 
-Sealas is Open Source. Open Source in all matters technical: the source code is available on Github, and everybody's welcome to support us with pull requests.
+Follow the journey of our development of a secure client-side encrypted accounting software.
 
-... and Open Source in spirit: we write about the whole development of Sealas and the hows and whys behind our technical, design and business decisions.
+Learn with us the ins and outs of working on a project with the focus on security and usability.
+We write about the challenges, hows and whys behind our technical, design and business decisions.
 
-Check out the [website and blog repository](https://github.com/Brainsware/sealas-site), and follow our development of Sealas here: [https://sealas.at/blog](https://sealas.at/blog)
+Check out the blog here: [https://sealas.at/blog](https://sealas.at/blog)
 
 ## Build Status
 
@@ -18,6 +19,22 @@ AppVeyor: [![AppVyor Build status](https://ci.appveyor.com/api/projects/status/v
 
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/Brainsware/sealas.svg)](https://beta.hexfaktor.org/github/Brainsware/sealas)
 [![Inline docs](https://inch-ci.org/github/Brainsware/sealas.svg?branch=master&style=flat)](https://inch-ci.org/github/Brainsware/sealas)
+
+## Structure
+
+Sealas is built as an umbrella app (explained in more detail here: [https://sealas.at/blog/2017-08/setting-up-a-phoenix-umbrella-app/](https://sealas.at/blog/2017-08/setting-up-a-phoenix-umbrella-app/))
+
+### `apps/sealas_sso`
+
+The SSO or authentication app handles all interaction with the user database. Registration, authorization, registration and access recovery are done here.
+
+### `apps/sealas_api`
+
+All interaction with the permanent datastore goes through this part, as well as some access to authentication mechanisms.
+
+### `apps/sealas_web`
+
+The main part of the the actual client and the one that relies the least on the backend, as it's mostly static content. All of the javascript base goes here, along with the generators, along with the generators and CSS files.
 
 ## Development
 

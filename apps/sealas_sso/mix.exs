@@ -9,7 +9,7 @@ defmodule SealasSso.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.5",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -41,20 +41,24 @@ defmodule SealasSso.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.14"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2.14"},
       {:yubico, "~> 0.1"},
-      {:guardian, "~> 1.0-beta"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
-      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:inch_ex, only: :docs},
       {:base_model, "~> 0.2"},
-      {:swoosh, "~> 0.11"},
+      {:swoosh, "~> 0.13"},
       {:phoenix_swoosh, "~> 0.2"},
+      {:gen_smtp, "~> 0.12"},
+      {:jose, "~> 1.8"},
+      {:authtoken, "~> 0.2"},
+
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.18", only: :dev}
     ]
   end
 

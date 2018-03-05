@@ -20,9 +20,8 @@ config :sealas_sso, SealasSso.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :sealas_sso, SealasSso.Guardian,
-  issuer: "sealas",
-  secret_key: "YQnnTBIJqfn9QA7jp371vqZxKzjxCI9mjmbAWnyjDm013nHqeNp3gE/Zl0k11/b/"
+config :authtoken,
+  token_key: <<9, 220, 102, 230, 103, 242, 149, 254, 4, 33, 137, 240, 23, 90, 99, 250>>
 
 # ## SSL Support
 #

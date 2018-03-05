@@ -1,0 +1,9 @@
+<%= dgettext "mail", "verification_one_more_step" %>
+
+<%= @user.activation_code %>
+
+<%= dgettext "mail", "verification_code" %>
+
+<%= @app_uri %>/user/verification?u=<%= @user.activation_code %>
+
+<%= dgettext "mail", "verification_verify" %>

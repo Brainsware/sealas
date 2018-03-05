@@ -6,13 +6,59 @@ defmodule SealasSso.RegistrationController do
   use SealasSso, :controller
 
   alias SealasSso.Accounts.User
+  alias SealasSso.Accounts.Account
 
   action_fallback SealasSso.FallbackController
 
   @doc """
+  Check if user with provided activation code exists, and if user is still not verified
+  """
+  @spec show(Plug.Conn.t, %{id: String.t}) :: Plug.Conn.t
+  def show(conn, %{"id" => code}) do
+    user = User.first(activation_code: code)
+
+    cond do
+      user && !user.active ->
+        conn
+        |> render("code.json", email: user.email)
+      true ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", error: "wrong_code")
+    end
+  end
+
+  @doc """
+  Verify user with provided code
+  """
+  @spec create(Plug.Conn.t, %{code: String.t, user: %{}}) :: Plug.Conn.t
+  def create(conn, %{"code" => code, "user" => user_params}) do
+    user = User.first(activation_code: code)
+
+    cond do
+      !user || user.active ->
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", error: "wrong_code")
+      true ->
+        with {:ok, %User{} = user} <- User.update(user, password: user_params["password"], password_hint: user_params["password_hint"], salt: user_params["salt"], active: true, activation_code: nil),
+          {:ok, %Account{} = account} <- Account.create(user: user, appkey: user_params["appkey"])
+        do
+          conn
+          |> put_status(:created)
+          |> render("verify.json")
+        else
+          err -> conn
+          |> put_status(:bad_request)
+          |> render("error.json", error: err)
+        end
+    end
+  end
+
+  @doc """
   First step to registration, check email, create new user with it.
 
-  Also sends out e-mail with verification code in later version.
+  TODO: Also sends out e-mail with verification code in later version.
   """
   @spec create(Plug.Conn.t, %{user: %{}}) :: Plug.Conn.t
   def create(conn, %{"user" => user_params}) do
@@ -23,6 +69,9 @@ defmodule SealasSso.RegistrationController do
 
     case User.create(user_params) do
       {:ok, %User{} = user} ->
+        SealasSso.UserMail.verification(%{email: user.email, activation_code: code_hash})
+        |> SealasSso.Mailer.deliver
+
         conn
         |> put_status(:created)
         |> render("registration.json", activation_code: code_hash)
@@ -30,7 +79,6 @@ defmodule SealasSso.RegistrationController do
         user = User.first(email: user_params["email"])
 
         cond do
-          # somebody is trying to register with an email that's already registered
           user && !user.active ->
             code_hash = :crypto.hash(:sha256, user.activation_code) |> Base.encode16 |> String.downcase
 

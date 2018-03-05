@@ -4,8 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :sealas_sso, SealasSso.Endpoint,
   http: [port: 4002],
-  server: false,
-  token_key: "sealas_auth_token_key_JGSKLvkfdklmsfvlk434vJKDgavkdmSDFfasldkfgq"
+  server: false
 
 config :sealas_sso, SealasSso.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
@@ -20,11 +19,13 @@ config :argon2_elixir,
   t_cost: 2,
   m_cost: 12
 
-config :sealas_sso, SealasSso.Guardian,
-  issuer: "sealas",
-  secret_key: "1alYndxVPyMsvGTYJdRKAJRbH69DKSZvxg1h9Lg3uXgE9VXh9AqLcF1VSmmoS8Ni"
+config :authtoken,
+  token_key: <<9, 220, 102, 230, 103, 242, 149, 254, 4, 33, 137, 240, 23, 90, 99, 250>>
 
 config :sealas_sso, SealasSso.Yubikey,
   skip_server: true
+
+config :sealas_sso, SealasSso.Mailer,
+  adapter: Swoosh.Adapters.Test
 
 import_config "config.secret.exs"

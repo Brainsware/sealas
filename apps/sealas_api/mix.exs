@@ -9,7 +9,7 @@ defmodule SealasApi.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.5",
+      elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -41,14 +41,16 @@ defmodule SealasApi.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.14"},
       {:cowboy, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
-      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:inch_ex, only: :docs},
-      {:scrivener_ecto, "~> 1.3.0"}
+      {:scrivener_ecto, "~> 1.3.0"},
+
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.18", only: :dev}
     ]
   end
 

@@ -1,0 +1,5 @@
+<p><%= dgettext "mail", "verification_one_more_step" %></p>
+<h2 style="text-align: center;background-color: #F4D03F;padding: 0.5em;"><%= @user.activation_code %></h2>
+<p><%= dgettext "mail", "verification_code" %></p>
+<p><a href="<%= @app_uri %>/user/verification?u=<%= @user.activation_code %>"><%= @app_uri %>/user/verification?u=<%= @user.activation_code %></a></p>
+<p><%= dgettext "mail", "verification_verify" %></p>

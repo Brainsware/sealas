@@ -12,9 +12,7 @@ defmodule EctoHashedPassword do
   @doc """
   Hash password with currenly used hashing algorithm
   """
-  def cast(password) when is_binary(password) do
-    {:ok, Comeonin.Argon2.hashpwsalt(password)}
-  end
+  def cast(password) when is_binary(password), do: {:ok, Comeonin.Argon2.hashpwsalt(password)}
   def cast(_), do: :error
 
   def load(password) when is_binary(password), do: {:ok, password}
@@ -27,7 +25,5 @@ defmodule EctoHashedPassword do
   Check password against hash with currently used hashing algorithm.
   """
   @spec checkpw(String.t, String.t) :: boolean
-  def checkpw(password, hash) do
-    Comeonin.Argon2.checkpw(password, hash)
-  end
+  def checkpw(password, hash), do: Comeonin.Argon2.checkpw(password, hash)
 end

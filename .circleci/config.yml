@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       # specify the version here
-      - image: circleci/elixir:1.5-node
+      - image: circleci/elixir:1.6-node
       - image: circleci/postgres:10-alpine
         environment:
           POSTGRES_USER: sealas
@@ -21,13 +21,9 @@ jobs:
       - restore_cache:
           keys:
             - v1-npm-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
       - restore_cache:
           keys:
             - erlang-20.1_elixir-1.5.2.plt
-          paths:
-            - _mix_ci
 
       - run: npm i
       - run: npm run mdlint
@@ -42,6 +38,8 @@ jobs:
       - save_cache:
           key: erlang-20.1_elixir-1.5.2.plt
           paths:
+            - _build
+            - ~/.mix
             - _mix_ci
 
       - run: make mix-dialyzer
